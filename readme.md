@@ -22,8 +22,6 @@ This is a simple game called GhostEscape developed using the SDL framework and G
 ├── bin/                    # Binary executables
 │   ├── ghostEscape-Windows-Debug.exe
 │   └── ghostEscape-Windows-Debug.pdb
-├── build/                  # Build artifacts
-│   └── Debug/
 ├── core/                   # Core game engine
 │   ├── Actor.cpp           # Actor implementation
 │   ├── Actor.h             # Actor header
@@ -39,7 +37,9 @@ This is a simple game called GhostEscape developed using the SDL framework and G
 │   ├── ObjectScreen.h      # Screen object header
 │   ├── ObjectWorld.cpp     # World object implementation
 │   └── ObjectWorld.h       # World object header
-├── raw/                    # Raw assets before processing
+├── raw/
+│   ├── Status.cpp          # Actor state management implementation
+│   └── Status.h            # Actor state management header              
 └── src/                    # Source code
 ```
 
