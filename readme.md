@@ -1,4 +1,4 @@
-This is a simple game call GhostEscape developed using the SDL framework and GLM vector library.
+This is a simple game called GhostEscape developed using the SDL framework and GLM vector library.
 
 ## Project Structure
 
@@ -42,3 +42,6 @@ This is a simple game call GhostEscape developed using the SDL framework and GLM
 ├── raw/                    # Raw assets before processing
 └── src/                    # Source code
 ```
+
+## Reference
+https://www.bilibili.com/video/BV1jf9XYQEhW
