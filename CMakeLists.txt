@@ -18,25 +18,28 @@ set(TARGET "${PROJECT_NAME}-${CMAKE_SYSTEM_NAME}-${CMAKE_BUILD_TYPE}")
 add_executable(${TARGET}
     "core/Game.cpp"
     "core/Object.cpp"
-    "raw/Status.cpp"
     "core/ObjectAffiliate.cpp"
     "core/ObjectWorld.cpp"
     "core/AssetStore.cpp"
     "core/Actor.cpp"
     "core/Scene.cpp"
-    "src/main.cpp"
-    "src/Player.cpp"
-    "src/Enemy.cpp"
-    "src/SceneMain.cpp"
     "affiliate/Sprite.cpp"
     "affiliate/SpriteAnim.cpp"
     "affiliate/Collider.cpp"
+    "raw/Status.cpp"
+    "world/Effect.cpp"
+    "src/main.cpp"
+    "src/Player.cpp"
+    "src/Enemy.cpp"
+    "src/Spawner.cpp"
+    "src/SceneMain.cpp"
 )
 target_include_directories(${TARGET} PRIVATE 
     "${CMAKE_CURRENT_SOURCE_DIR}/src"
     "${CMAKE_CURRENT_SOURCE_DIR}/core"
     "${CMAKE_CURRENT_SOURCE_DIR}/affiliate"
     "${CMAKE_CURRENT_SOURCE_DIR}/raw"
+    "${CMAKE_CURRENT_SOURCE_DIR}/world"
 )
 
 

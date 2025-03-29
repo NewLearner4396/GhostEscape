@@ -1,4 +1,5 @@
 #include "SceneMain.h"
+#include "Effect.h"
 
 void SceneMain::init() {
     world_size_ = game_.getWindowSize() * 3.0f;
@@ -8,12 +9,13 @@ void SceneMain::init() {
     player_->init();
     player_->setPosition(world_size_ / 2.0f);
     addObject(player_);
+    
     enemy_ = new Enemy();
     enemy_->init();
+    enemy_->setTarget(player_);
     enemy_->setPosition(world_size_ / 2.0f + glm::vec2(100.0f, 100.0f));
     enemy_->setMaxSpeed(50.0f);
-    enemy_->setTarget(player_);
-    addObject(enemy_);
+    Effect::addEffect(this, "../assets/effect/184_3.png", enemy_->getPosition(), 1.0f, enemy_); // enemy show up effect
 }
 
 void SceneMain::clean() { Scene::clean(); }

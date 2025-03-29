@@ -32,8 +32,8 @@ class Status : public Object{
         void setMaxStamina(float max_stamina) { max_stamina_ = max_stamina; }
         float getDamage() const { return damage_; }
         void setDamage(float damage) { damage_ = damage; }
-        bool isAlive() const { return is_alive_; }
-        void setAlive(bool is_alive) { is_alive_ = is_alive; }
+        bool getIsAlive() const { return is_alive_; }
+        void setIsAlive(bool is_alive) { is_alive_ = is_alive; }
         float getInvincibleDuration() const { return invincible_duration_; }
         void setInvincibleDuration(float time_s) { invincible_duration_ = time_s; }
         bool isInvincible() const { return is_invincible_; }

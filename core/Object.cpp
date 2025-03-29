@@ -8,6 +8,10 @@ void Object::handleEvents(SDL_Event& event) {
 }
 
 void Object::update(float dT) {
+    for (auto& object : objects_to_add_) {
+        addObject(object);
+    }
+    objects_to_add_.clear();
     for (auto iter = objects_.begin(); iter != objects_.end();) {
         auto object = *iter;
         if (!object) {  // Check for null pointer

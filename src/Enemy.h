@@ -11,12 +11,14 @@ class Enemy : public Actor {
     virtual void update(float dT) override;
 
     void aim_target(Player* target);
-    EnemyState checkState();
+    void move(float dT);
     void changeState(EnemyState new_state);
     void attack();
-
+    
     Player* getTarget() const { return target_; }
     void setTarget(Player* target) { target_ = target; }
+    EnemyState getState() const { return current_state_; }
+    void setState(EnemyState state) { current_state_ = state; }
 
    protected:
     Player* target_ = nullptr;

@@ -9,4 +9,4 @@ void Actor::takeDamage(float damage) {
     status_->takeDamage(damage);
 }
 
-bool Actor::isAlive() const { return status_ ? status_->isAlive() : false; }
+bool Actor::isAlive() const { return status_ ? status_->getIsAlive() : false; }

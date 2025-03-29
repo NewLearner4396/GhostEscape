@@ -20,12 +20,14 @@ class Object {
     virtual void update(float dT);
     virtual void render();
 
-    ObjectType getObjectType() const { return object_type_; }
-    void setObjectType(ObjectType object_type) { object_type_ = object_type; }    
     virtual void addObject(Object* object) { objects_.push_back(object); }
     virtual void removeObject(Object* object) {
         objects_.erase(std::remove(objects_.begin(), objects_.end(), object), objects_.end());
     }
+    void safeAddObject(Object* object) {objects_to_add_.push_back(object);}
+
+    ObjectType getObjectType() const { return object_type_; }
+    void setObjectType(ObjectType object_type) { object_type_ = object_type; }    
     bool getActive() const {return is_active_;}
     void setActive(bool is_active) { is_active_ = is_active; }
     bool getNeedRemove() const {return need_remove_;}
@@ -34,6 +36,7 @@ class Object {
    protected:
     Game& game_ = Game::getInstance();
     std::vector<Object*> objects_;
+    std::vector<Object*> objects_to_add_;
     ObjectType object_type_ = ObjectType::NONE;
     bool is_active_ = true;
     bool need_remove_ = false;

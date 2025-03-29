@@ -3,7 +3,6 @@
 #include "Collider.h"
 #include "Scene.h"
 #include "SpriteAnim.h"
-#include "Status.h"
 
 void Player::init() {
     Actor::init();
@@ -13,6 +12,7 @@ void Player::init() {
 
     collider_ = Collider::addCollider(this, sprite_idle_->getSize() / 2.0f);
     status_ = Status::addStatus(this);
+    deadEffect_ = Effect::addEffect(nullptr, "../assets/effect/1764.png", getPosition(), 2.0f);
 }
 
 void Player::clean() { Actor::clean(); }
@@ -24,9 +24,8 @@ void Player::update(float dT) {
     playerMove(dT);
     checkState();
     syncCamera();
-    // isAlive(); check if the player is alive
+    checkIsAlive();
     // TODO: if player is invincible, add transparency effect to the player
-    
 }
 
 void Player::render() {
@@ -90,5 +89,13 @@ void Player::changeState(bool is_moving) {
         sprite_move_->setActive(false);
         sprite_idle_->setCurrentFrame(sprite_move_->getCurrentFrame());
         sprite_idle_->setFrameTimer(sprite_move_->getFrameTimer());
+    }
+}
+
+void Player::checkIsAlive() {
+    if (!status_->getIsAlive()) {
+        setActive(false);
+        deadEffect_->setPosition(getPosition());
+        game_.getCurrentScene()->safeAddObject(deadEffect_);
     }
 }
