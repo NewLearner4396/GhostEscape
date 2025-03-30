@@ -26,6 +26,8 @@ class Scene : public Object {
     glm::vec2 getCameraPosition() const { return camera_position_; }
     void setCameraPosition(const glm::vec2& camera_position);
     glm::vec2 getCameraSize() const { return camera_size_; }
+    std::vector<ObjectWorld*>& getObjectsWorld() { return objects_world_; }
+    std::vector<ObjectScreen*>& getObjectsScreen() { return objects_screen_; }
 
    protected:
     glm::vec2 world_size_;

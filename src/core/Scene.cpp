@@ -69,6 +69,7 @@ void Scene::render() {
 void Scene::addObject(Object* object) {
     switch (object->getObjectType()) {
         case ObjectType::OBJECT_WORLD:
+        case ObjectType::ENEMY:
             objects_world_.push_back(
                 dynamic_cast<ObjectWorld*>(object));  // dynamic_cast is used to safely cast for derived classes
             break;
@@ -84,6 +85,7 @@ void Scene::addObject(Object* object) {
 void Scene::removeObject(Object* object) {
     switch (object->getObjectType()) {
         case ObjectType::OBJECT_WORLD:
+        case ObjectType::ENEMY:
             objects_world_.erase(
                 std::remove(objects_world_.begin(), objects_world_.end(), static_cast<ObjectWorld*>(object)),
                 objects_world_.end());

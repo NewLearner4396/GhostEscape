@@ -32,6 +32,7 @@ void Player::update(float dT) {
 
 void Player::render() {
     Actor::render();
+    // TODO: render the health bar and mana bar
     // render player
     // glm::vec2 start = getRenderPosition();
     // glm::vec2 end = start + glm::vec2(20.0f, 20.0f);

@@ -18,6 +18,7 @@ void Enemy::init() {
     current_anim_ = sprite_normal_;
     collider_ = Collider::addCollider(this, sprite_normal_->getSize());
     status_ = Status::addStatus(this);
+    setObjectType(ObjectType::ENEMY);
 }
 
 void Enemy::update(float dT) {
@@ -27,21 +28,19 @@ void Enemy::update(float dT) {
         move(dT);             // move towards the target
         attack();
     }
-    // check if the enemy is dead
-    if (sprite_dead_->getIsFinished()) {
-        need_remove_ = true;
-    }
+    checkState();  // check the state of the enemy
+    remove(); // check if the enemy is dead
 }
 
-Enemy* Enemy::addEnemy(Object* parent, glm::vec2 pos, Player* target) { 
+Enemy* Enemy::addEnemy(Object* parent, glm::vec2 pos, Player* target) {
     auto enemy = new Enemy();
     enemy->init();
     enemy->setPosition(pos);
     enemy->setMaxSpeed(50.0f);
     enemy->setTarget(target);
-    if(parent)
+    if (parent)
         parent->safeAddObject(enemy);
-    return enemy; 
+    return enemy;
 }
 
 void Enemy::aim_target(Player* target) {
@@ -61,9 +60,21 @@ void Enemy::move(float dT) {
     setPosition(position_);
 }
 
+void Enemy::checkState() {
+    EnemyState new_state;
+    if (status_ && status_->getHealth() <= 0) {
+        new_state = EnemyState::DEAD;
+    } else if (status_ && status_->getInvincibleDuration() > 0) {
+        new_state = EnemyState::HURT;
+    } else {
+        new_state = EnemyState::NORMAL;
+    }
+    if (new_state != current_state_) {
+        changeState(new_state);
+    }
+}
+
 void Enemy::changeState(EnemyState new_state) {
-    if (new_state == current_state_)  // check if the state is already the same
-        return;
     current_anim_->setActive(false);
     switch (new_state) {
         case EnemyState::NORMAL:
@@ -80,6 +91,12 @@ void Enemy::changeState(EnemyState new_state) {
             break;
     }
     current_state_ = new_state;
+}
+
+void Enemy::remove(){
+    if (sprite_dead_->getIsFinished()) {
+        need_remove_ = true;
+    }
 }
 
 void Enemy::attack() {

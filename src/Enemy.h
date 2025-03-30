@@ -11,11 +11,7 @@ class Enemy : public Actor {
     virtual void update(float dT) override;
 
     static Enemy* addEnemy(Object* parent, glm::vec2 pos, Player* target = nullptr);
-    void aim_target(Player* target);
-    void move(float dT);
-    void changeState(EnemyState new_state);
-    void attack();
-    
+
     Player* getTarget() const { return target_; }
     void setTarget(Player* target) { target_ = target; }
     EnemyState getState() const { return current_state_; }
@@ -30,6 +26,14 @@ class Enemy : public Actor {
     SpriteAnim* sprite_dead_ = nullptr;
     SpriteAnim* current_anim_ = nullptr;
     float timer_ = 0.0f;
+
+   private:
+    void aim_target(Player* target);
+    void move(float dT);
+    void checkState();
+    void changeState(EnemyState new_state);
+    void remove();
+    void attack();
 };
 
 #endif  // ENEMY_H

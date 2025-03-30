@@ -28,6 +28,7 @@ add_executable(${TARGET}
     "src/affiliate/Collider.cpp"
     "src/raw/Status.cpp"
     "src/world/Effect.cpp"
+    "src/world/Spell.cpp"
     "src/screen/UI_Mouse.cpp"
     "src/main.cpp"
     "src/Player.cpp"

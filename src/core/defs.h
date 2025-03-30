@@ -7,6 +7,7 @@ enum class ObjectType {
     NONE = 0,
     OBJECT_SCREEN,
     OBJECT_WORLD,
+    ENEMY,
 };
 
 enum class Anchor{

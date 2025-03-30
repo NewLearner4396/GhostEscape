@@ -1,18 +1,19 @@
 #include "SceneMain.h"
+
+#include "Effect.h"
 #include "Enemy.h"
 #include "Player.h"
-#include "Effect.h"
 #include "Spawner.h"
+#include "Spell.h"
 #include "UI_Mouse.h"
 
 void SceneMain::init() {
-    Scene::init();
-    SDL_HideCursor();
+    SDL_HideCursor();  // Hide the system cursor for a better experience
 
     world_size_ = game_.getWindowSize() * 3.0f;
     camera_size_ = game_.getWindowSize();
     camera_position_ = world_size_ / 2.0f - camera_size_ / 2.0f;
-    
+
     player_ = new Player();
     player_->init();
     player_->setPosition(world_size_ / 2.0f);
@@ -22,13 +23,21 @@ void SceneMain::init() {
     spawner_->init();
     spawner_->setTarget(player_);
     addObject(spawner_);
-    
+
     UI_mouse_ = UI_Mouse::addMouse(this, "../assets/UI/29.png", "../assets/UI/30.png", 1.0f, Anchor::CENTER);
 }
 
 void SceneMain::clean() { Scene::clean(); }
 
-void SceneMain::handleEvents(SDL_Event& event) { Scene::handleEvents(event); }
+void SceneMain::handleEvents(SDL_Event& event) {
+    Scene::handleEvents(event);
+    if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
+        if (event.button.button == SDL_BUTTON_LEFT) {
+            auto pos = game_.getMousePosition() + camera_position_;  // get the mouse position in world coordinates
+            Spell::addSpell(this, "../assets/effect/Thunderstrike w blur.png", pos, 2.0f, 120.0f, Anchor::CENTER);
+        }
+    }
+}
 
 void SceneMain::update(float dT) {
     // camera_position_ += glm::vec2(10.0f, 10.0f) * dT;
