@@ -11,7 +11,7 @@ Effect* Effect::addEffect(Object* parent, const std::string& file_path, glm::vec
     effect->setPosition(pos);
     effect->next_object_ = next_object;
     if (parent)
-        parent->addObject(effect);
+        parent->safeAddObject(effect);
     return effect;
 }
 

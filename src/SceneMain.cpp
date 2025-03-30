@@ -1,21 +1,30 @@
 #include "SceneMain.h"
+#include "Enemy.h"
+#include "Player.h"
 #include "Effect.h"
+#include "Spawner.h"
 
 void SceneMain::init() {
     world_size_ = game_.getWindowSize() * 3.0f;
     camera_size_ = game_.getWindowSize();
     camera_position_ = world_size_ / 2.0f - camera_size_ / 2.0f;
+    
     player_ = new Player();
     player_->init();
     player_->setPosition(world_size_ / 2.0f);
     addObject(player_);
+
+    spawner_ = new Spawner();
+    spawner_->init();
+    spawner_->setTarget(player_);
+    addObject(spawner_);
     
-    enemy_ = new Enemy();
-    enemy_->init();
-    enemy_->setTarget(player_);
-    enemy_->setPosition(world_size_ / 2.0f + glm::vec2(100.0f, 100.0f));
-    enemy_->setMaxSpeed(50.0f);
-    Effect::addEffect(this, "../assets/effect/184_3.png", enemy_->getPosition(), 1.0f, enemy_); // enemy show up effect
+    // enemy_ = new Enemy();
+    // enemy_->init();
+    // enemy_->setTarget(player_);
+    // enemy_->setPosition(world_size_ / 2.0f + glm::vec2(100.0f, 100.0f));
+    // enemy_->setMaxSpeed(50.0f);
+    // Effect::addEffect(this, "../assets/effect/184_3.png", enemy_->getPosition(), 1.0f, enemy_); // enemy show up effect
 }
 
 void SceneMain::clean() { Scene::clean(); }

@@ -52,7 +52,7 @@ class Status : public Object{
         float mana_regen_ = 1.0f;
         float stamina_ = 50.0f;
         float max_stamina_ = 50.0f;
-        float damage_ = 10.0f;
+        float damage_ = 20.0f;
 
         bool is_alive_ = true;
         float invincible_duration_ = 1.5f; // time to be invincible after taking damage

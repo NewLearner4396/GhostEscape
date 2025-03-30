@@ -1,10 +1,11 @@
 #ifndef SCENEMAIN_H
 #define SCENEMAIN_H
-#include "Enemy.h"
-#include "Player.h"
+
 #include "Scene.h"
 
 class Player;
+class Enemy;
+class Spawner;
 class SceneMain : public Scene {
    public:
     SceneMain() = default;
@@ -19,6 +20,8 @@ class SceneMain : public Scene {
    private:
     Player* player_ = nullptr;
     Enemy* enemy_ = nullptr;
+    Spawner* spawner_ = nullptr; 
+
     void renderBackground();
 };
 

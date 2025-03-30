@@ -23,7 +23,6 @@ class Player : public Actor {
 
    private:
     float speed_ = 50.0f;
-    float max_speed_ = 100.0f;
     float acceleration_ = 1.0f;
     float deceleration_ = 0.9f;
     bool is_moving_ = false;

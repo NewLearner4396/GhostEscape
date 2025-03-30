@@ -17,11 +17,11 @@ void Scene::clean() {
 void Scene::handleEvents(SDL_Event& event) {
     Object::handleEvents(event);
     for (auto& object : objects_screen_) {
-        if (object->getActive())
+        if (object && object->getActive())
             object->handleEvents(event);
     }
     for (auto& object : objects_world_) {
-        if (object->getActive())
+        if (object && object->getActive())
             object->handleEvents(event);
     }
 }
@@ -76,6 +76,7 @@ void Scene::addObject(Object* object) {
             objects_screen_.push_back(dynamic_cast<ObjectScreen*>(object));
             break;
         default:
+            objects_.push_back(object); 
             break;
     }
 }

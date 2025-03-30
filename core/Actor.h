@@ -8,7 +8,7 @@ class Actor : public ObjectWorld {
    protected:
     Status* status_ = nullptr;  // status of the actor
     glm::vec2 velocity_;
-    float max_speed_ = 0.0f;
+    float max_speed_ = 50.0f;
     float angle_ = 0.0f;
 
    public:

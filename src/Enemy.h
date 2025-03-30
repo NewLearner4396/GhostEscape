@@ -10,6 +10,7 @@ class Enemy : public Actor {
     virtual void init() override;
     virtual void update(float dT) override;
 
+    static Enemy* addEnemy(Object* parent, glm::vec2 pos, Player* target = nullptr);
     void aim_target(Player* target);
     void move(float dT);
     void changeState(EnemyState new_state);

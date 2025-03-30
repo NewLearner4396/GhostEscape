@@ -6,6 +6,7 @@
 
 void Enemy::init() {
     Actor::init();
+    setMaxSpeed(50.0f);
 
     sprite_normal_ = SpriteAnim::addSpriteAnim(this, "../assets/sprite/ghost-Sheet.png", 2.0f);
     sprite_hurt_ = SpriteAnim::addSpriteAnim(this, "../assets/sprite/ghostHurt-Sheet.png", 2.0f);
@@ -30,6 +31,17 @@ void Enemy::update(float dT) {
     if (sprite_dead_->getIsFinished()) {
         need_remove_ = true;
     }
+}
+
+Enemy* Enemy::addEnemy(Object* parent, glm::vec2 pos, Player* target) { 
+    auto enemy = new Enemy();
+    enemy->init();
+    enemy->setPosition(pos);
+    enemy->setMaxSpeed(50.0f);
+    enemy->setTarget(target);
+    if(parent)
+        parent->safeAddObject(enemy);
+    return enemy; 
 }
 
 void Enemy::aim_target(Player* target) {

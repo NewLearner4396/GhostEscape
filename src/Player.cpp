@@ -6,6 +6,8 @@
 
 void Player::init() {
     Actor::init();
+    setMaxSpeed(100.0f);
+
     sprite_idle_ = SpriteAnim::addSpriteAnim(this, "../assets/sprite/ghost-idle.png", 2.0f);
     sprite_move_ = SpriteAnim::addSpriteAnim(this, "../assets/sprite/ghost-move.png", 2.0f);
     sprite_move_->setActive(false);
