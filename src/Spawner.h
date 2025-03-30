@@ -14,7 +14,7 @@ class Spawner : public Object {
     Player* target_ = nullptr; // target to spawn enemies
 
     public:
-    virtual void init() override { num_objects_ = 0; }
+    virtual void init() override { object_type_ = ObjectType::NONE; }
     virtual void update(float dT) override;
 
     // getters and setters

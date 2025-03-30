@@ -16,18 +16,19 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 
 set(TARGET "${PROJECT_NAME}-${CMAKE_SYSTEM_NAME}-${CMAKE_BUILD_TYPE}")
 add_executable(${TARGET}
-    "core/Game.cpp"
-    "core/Object.cpp"
-    "core/ObjectAffiliate.cpp"
-    "core/ObjectWorld.cpp"
-    "core/AssetStore.cpp"
-    "core/Actor.cpp"
-    "core/Scene.cpp"
-    "affiliate/Sprite.cpp"
-    "affiliate/SpriteAnim.cpp"
-    "affiliate/Collider.cpp"
-    "raw/Status.cpp"
-    "world/Effect.cpp"
+    "src/core/Game.cpp"
+    "src/core/Object.cpp"
+    "src/core/ObjectAffiliate.cpp"
+    "src/core/ObjectWorld.cpp"
+    "src/core/AssetStore.cpp"
+    "src/core/Actor.cpp"
+    "src/core/Scene.cpp"
+    "src/affiliate/Sprite.cpp"
+    "src/affiliate/SpriteAnim.cpp"
+    "src/affiliate/Collider.cpp"
+    "src/raw/Status.cpp"
+    "src/world/Effect.cpp"
+    "src/screen/UI_Mouse.cpp"
     "src/main.cpp"
     "src/Player.cpp"
     "src/Enemy.cpp"
@@ -36,10 +37,11 @@ add_executable(${TARGET}
 )
 target_include_directories(${TARGET} PRIVATE 
     "${CMAKE_CURRENT_SOURCE_DIR}/src"
-    "${CMAKE_CURRENT_SOURCE_DIR}/core"
-    "${CMAKE_CURRENT_SOURCE_DIR}/affiliate"
-    "${CMAKE_CURRENT_SOURCE_DIR}/raw"
-    "${CMAKE_CURRENT_SOURCE_DIR}/world"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/core"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/affiliate"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/raw"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/world"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/screen"
 )
 
 

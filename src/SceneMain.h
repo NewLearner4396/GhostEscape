@@ -6,6 +6,7 @@
 class Player;
 class Enemy;
 class Spawner;
+class UI_Mouse;
 class SceneMain : public Scene {
    public:
     SceneMain() = default;
@@ -21,7 +22,7 @@ class SceneMain : public Scene {
     Player* player_ = nullptr;
     Enemy* enemy_ = nullptr;
     Spawner* spawner_ = nullptr; 
-
+    UI_Mouse* UI_mouse_ = nullptr;
     void renderBackground();
 };
 

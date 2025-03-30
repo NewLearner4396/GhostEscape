@@ -3,8 +3,12 @@
 #include "Player.h"
 #include "Effect.h"
 #include "Spawner.h"
+#include "UI_Mouse.h"
 
 void SceneMain::init() {
+    Scene::init();
+    SDL_HideCursor();
+
     world_size_ = game_.getWindowSize() * 3.0f;
     camera_size_ = game_.getWindowSize();
     camera_position_ = world_size_ / 2.0f - camera_size_ / 2.0f;
@@ -19,12 +23,7 @@ void SceneMain::init() {
     spawner_->setTarget(player_);
     addObject(spawner_);
     
-    // enemy_ = new Enemy();
-    // enemy_->init();
-    // enemy_->setTarget(player_);
-    // enemy_->setPosition(world_size_ / 2.0f + glm::vec2(100.0f, 100.0f));
-    // enemy_->setMaxSpeed(50.0f);
-    // Effect::addEffect(this, "../assets/effect/184_3.png", enemy_->getPosition(), 1.0f, enemy_); // enemy show up effect
+    UI_mouse_ = UI_Mouse::addMouse(this, "../assets/UI/29.png", "../assets/UI/30.png", 1.0f, Anchor::CENTER);
 }
 
 void SceneMain::clean() { Scene::clean(); }
