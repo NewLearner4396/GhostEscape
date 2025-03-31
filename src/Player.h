@@ -4,6 +4,7 @@
 #include "Effect.h"
 #include "SpriteAnim.h"
 #include "Status.h"
+#include "WeaponThunder.h"
 
 class Player : public Actor {
    public:
@@ -15,6 +16,7 @@ class Player : public Actor {
     void handleEvents(SDL_Event& event) override;
     void update(float dT) override;
     void render() override;
+
     void playerMove(float dT);
     void syncCamera();
     void checkState();
@@ -29,6 +31,7 @@ class Player : public Actor {
     SpriteAnim* sprite_idle_ = nullptr;
     SpriteAnim* sprite_move_ = nullptr;
     Effect* deadEffect_ = nullptr;
+    WeaponThunder* weapon_thunder_ = nullptr;
 };
 
 #endif  // PLAYER_H

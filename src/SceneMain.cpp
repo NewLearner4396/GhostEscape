@@ -31,12 +31,6 @@ void SceneMain::clean() { Scene::clean(); }
 
 void SceneMain::handleEvents(SDL_Event& event) {
     Scene::handleEvents(event);
-    if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
-        if (event.button.button == SDL_BUTTON_LEFT) {
-            auto pos = game_.getMousePosition() + camera_position_;  // get the mouse position in world coordinates
-            Spell::addSpell(this, "../assets/effect/Thunderstrike w blur.png", pos, 2.0f, 120.0f, Anchor::CENTER);
-        }
-    }
 }
 
 void SceneMain::update(float dT) {

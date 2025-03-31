@@ -21,7 +21,8 @@ Spell* Spell::addSpell(Object* parent, const std::string& file_path, glm::vec2 p
         SpriteAnim::addSpriteAnim(spell, file_path, scale, anchor);  // add the sprite animation to the spell:
     spell->sprite_->setIsLoop(false);                                // set the animation to not loop
     spell->setPosition(pos);                                         // set the position of the spell
-    spell->collider_ = Collider::addCollider(spell, spell->sprite_->getSize(), Collider::ColliderType::CIRCLE, anchor);  // add a collider to the spell
+    spell->collider_ = Collider::addCollider(spell, spell->sprite_->getSize(), Collider::ColliderType::CIRCLE,
+                                             anchor);  // add a collider to the spell
     if (parent)
         parent->safeAddObject(spell);  // add the spell to the parent object
     return spell;                      // return the spell object

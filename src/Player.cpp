@@ -15,6 +15,7 @@ void Player::init() {
     collider_ = Collider::addCollider(this, sprite_idle_->getSize() / 2.0f);
     status_ = Status::addStatus(this);
     deadEffect_ = Effect::addEffect(nullptr, "../assets/effect/1764.png", getPosition(), 2.0f);
+    weapon_thunder_ = WeaponThunder::addWeaponThunder(this, 10.0f, 2.0f);
 }
 
 void Player::clean() { Actor::clean(); }

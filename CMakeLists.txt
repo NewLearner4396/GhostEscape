@@ -27,14 +27,16 @@ add_executable(${TARGET}
     "src/affiliate/SpriteAnim.cpp"
     "src/affiliate/Collider.cpp"
     "src/raw/Status.cpp"
+    "src/raw/Weapon.cpp"
     "src/world/Effect.cpp"
     "src/world/Spell.cpp"
     "src/screen/UI_Mouse.cpp"
     "src/main.cpp"
+    "src/SceneMain.cpp"
+    "src/Spawner.cpp"
+    "src/WeaponThunder.cpp"
     "src/Player.cpp"
     "src/Enemy.cpp"
-    "src/Spawner.cpp"
-    "src/SceneMain.cpp"
 )
 target_include_directories(${TARGET} PRIVATE 
     "${CMAKE_CURRENT_SOURCE_DIR}/src"
