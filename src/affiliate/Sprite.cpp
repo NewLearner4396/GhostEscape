@@ -17,13 +17,13 @@ void Sprite::render() {
     if (!texture_.texture) {
         return;
     }
-    if (!object_parent_) {
+    if (!parent_) {
         return;
     }
     if (isFinished_) {
         return;
     }
-    auto pos = object_parent_->getRenderPosition() + offset_;
+    auto pos = parent_->getRenderPosition() + offset_;
     game_.renderTexture(texture_, pos, size_);
 }
 /**

@@ -4,10 +4,6 @@
 #include "ObjectScreen.h"
 
 class ObjectWorld : public ObjectScreen {
-   protected:
-    glm::vec2 position_;  // world position
-    Collider* collider_ = nullptr;
-
    public:
     virtual void init() override { object_type_ = ObjectType::OBJECT_WORLD; }
     virtual void update(float dT) override;
@@ -18,5 +14,9 @@ class ObjectWorld : public ObjectScreen {
     void setPosition(const glm::vec2& position);
     Collider* getCollider() const { return collider_; }
     void setCollider(Collider* new_) { collider_ = new_; }
+
+   protected:
+    glm::vec2 position_;  // world position
+    Collider* collider_ = nullptr;
 };
 #endif  // OBJECTWORLD_H

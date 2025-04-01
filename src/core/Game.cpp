@@ -32,7 +32,7 @@ void Game::init(const std::string& title, int width, int height) {
     Mix_AllocateChannels(16);
     Mix_VolumeMusic(MIX_MAX_VOLUME / 4);
     Mix_Volume(-1, MIX_MAX_VOLUME / 4);
-    
+
     SDL_CreateWindowAndRenderer(title.c_str(), width, height, SDL_WINDOW_RESIZABLE, &window_, &renderer_);
     if (!window_ || !renderer_) {
         std::cerr << "Failed to create window or renderer: " << SDL_GetError() << std::endl;
@@ -150,7 +150,7 @@ void Game::drawBoundary(glm::vec2& leftTop, glm::vec2& rightBottom, float width,
 void Game::renderTexture(Texture& texture, const glm::vec2& position, const glm::vec2& size) {
     SDL_FRect dstRect{position.x, position.y, size.x, size.y};
     SDL_RenderTextureRotated(renderer_, texture.texture, &texture.srcRect, &dstRect, texture.angle, nullptr,
-                      texture.isFlip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
+                             texture.isFlip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
 }
 
 void Game::renderFilledCircle(const glm::vec2& position, const glm::vec2& size, float alpha) {
@@ -158,4 +158,13 @@ void Game::renderFilledCircle(const glm::vec2& position, const glm::vec2& size, 
     SDL_FRect dstRect{position.x, position.y, size.x, size.y};
     SDL_SetTextureAlphaModFloat(texture, alpha);
     SDL_RenderTexture(renderer_, texture, nullptr, &dstRect);
+}
+
+void Game::renderHBar(const glm::vec2& position, const glm::vec2& size, float percentage, SDL_FColor color) {
+    SDL_SetRenderDrawColorFloat(renderer_, color.r, color.g, color.b, color.a);
+    SDL_FRect bar_rect{position.x, position.y, size.x, size.y};
+    SDL_FRect fill_rect{position.x, position.y, size.x * percentage, size.y};
+    SDL_RenderRect(renderer_, &bar_rect);
+    SDL_RenderFillRect(renderer_, &fill_rect);
+    SDL_SetRenderDrawColorFloat(renderer_, 0, 0, 0, 1);
 }

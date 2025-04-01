@@ -9,7 +9,7 @@ void Collider::clean() {
 void Collider::render() {
     ObjectAffiliate::render();
 #ifdef DEBUG_MODE
-    auto pos = object_parent_->getRenderPosition() + offset_;
+    auto pos = parent_->getRenderPosition() + offset_;
     game_.renderFilledCircle(pos, size_, 0.3f);
 #endif
 }
@@ -20,8 +20,8 @@ bool Collider::isColliding(Collider* other) {
         return false;
     }
     
-    if (!object_parent_) {
-        std::cout << "Collision check failed: this.object_parent_ is null" << std::endl;
+    if (!parent_) {
+        std::cout << "Collision check failed: this.parent_ is null" << std::endl;
         return false;
     }
     
@@ -31,7 +31,7 @@ bool Collider::isColliding(Collider* other) {
     }
     // two circle
     if (type_ == ColliderType::CIRCLE && other->getColliderType() == ColliderType::CIRCLE) {
-        auto point1 = object_parent_->getPosition() + offset_ + size_ / 2.0f;
+        auto point1 = parent_->getPosition() + offset_ + size_ / 2.0f;
         auto point2 = other->getParent()->getPosition() + other->getOffset() + other->getSize() / 2.0f;
         return glm::length(point1 - point2) < (size_.x + other->getSize().x) / 2.0f;
     }

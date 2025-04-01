@@ -17,6 +17,8 @@ class SceneMain : public Scene {
     void handleEvents(SDL_Event& event) override;
     void update(float dT) override;
     void render() override;
+    
+    Spawner* getSpawner() const { return spawner_; }
 
    private:
     Player* player_ = nullptr;

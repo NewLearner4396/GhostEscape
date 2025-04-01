@@ -4,6 +4,11 @@
 #include "Scene.h"
 #include "Spell.h"
 
+void WeaponThunder::init() {
+    object_type_ = ObjectType::NONE;
+    // TODO: set the collider of the spell
+}
+
 void WeaponThunder::handleEvents(SDL_Event& event) {
     if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
         if (event.button.button == SDL_BUTTON_LEFT) {

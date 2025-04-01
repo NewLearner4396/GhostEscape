@@ -18,6 +18,11 @@ bool Weapon::canAttack() {
     return true;
 }
 
+/**
+ * @brief attack the target with the spell 
+ * ! before using this function, make sure canAttack() is true
+ *
+ */
 void Weapon::attack(glm::vec2 position, Spell* spell) {
     if (spell == nullptr) {  // check if the spell is valid
 #ifdef DEBUG_MODE
@@ -25,9 +30,7 @@ void Weapon::attack(glm::vec2 position, Spell* spell) {
 #endif
         return;
     }
-    if (canAttack()) {
-        parent_->getStatus()->useMana(mana_cost_);      // use mana
-        spell->setPosition(position);                   // set the position of the spell
-        game_.getCurrentScene()->safeAddObject(spell);  // add the spell to the scene
-    }
+    parent_->getStatus()->useMana(mana_cost_);      // use mana
+    spell->setPosition(position);                   // set the position of the spell
+    game_.getCurrentScene()->safeAddObject(spell);  // add the spell to the scene
 }

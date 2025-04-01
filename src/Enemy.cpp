@@ -1,7 +1,10 @@
 #include "Enemy.h"
 
+#include "AffiliateBar.h"
 #include "Collider.h"
 #include "Scene.h"
+#include "SceneMain.h"
+#include "Spawner.h"
 #include "Status.h"
 
 void Enemy::init() {
@@ -18,6 +21,9 @@ void Enemy::init() {
     current_anim_ = sprite_normal_;
     collider_ = Collider::addCollider(this, sprite_normal_->getSize());
     status_ = Status::addStatus(this);
+    auto _size = sprite_normal_->getSize();
+    health_bar_ = AffiliateBar::addAffiliateBar(this, glm::vec2(_size.x - 10, 10), Anchor::BOTTOM_CENTER);
+    health_bar_->setOffset(health_bar_->getOffset() + glm::vec2(0, -_size.y / 2 + 5));
     setObjectType(ObjectType::ENEMY);
 }
 
@@ -29,7 +35,7 @@ void Enemy::update(float dT) {
         attack();
     }
     checkState();  // check the state of the enemy
-    remove(); // check if the enemy is dead
+    remove();      // check if the enemy is dead
 }
 
 Enemy* Enemy::addEnemy(Object* parent, glm::vec2 pos, Player* target) {
@@ -93,9 +99,19 @@ void Enemy::changeState(EnemyState new_state) {
     current_state_ = new_state;
 }
 
-void Enemy::remove(){
+/**
+ * @brief Check if the enemy is dead and remove it from the scene
+ * 
+ */
+void Enemy::remove() {
     if (sprite_dead_->getIsFinished()) {
         need_remove_ = true;
+        // Remove the enemy from the spawner
+        auto scene_main = dynamic_cast<SceneMain*>(game_.getCurrentScene());
+        if (scene_main && scene_main->getSpawner()) {
+            scene_main->getSpawner()->setNumObjects(scene_main->getSpawner()->getNumObjects() -
+                                                    1);  // Decrease the number of enemies
+        }
     }
 }
 

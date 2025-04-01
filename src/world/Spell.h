@@ -14,10 +14,14 @@ class Spell : public ObjectWorld {
     // getters and setters
     float getDamage() const { return damage_; }
     void setDamage(float damage) { damage_ = damage; }
+    bool getCanEffect() const { return can_effect_; }
+    void setCanEffect(bool can_effect) { can_effect_ = can_effect; }
 
    protected:
     SpriteAnim* sprite_ = nullptr;  // sprite of the spell
     float damage_ = 30.0f;          // damage of the spell
+    // TODO: add when the spell is effect
+    bool can_effect_ = true;      // if the spell can effect the target
    private:
     void attack();  // attack with the spell
 };
