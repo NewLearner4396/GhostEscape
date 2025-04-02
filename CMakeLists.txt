@@ -32,6 +32,7 @@ add_executable(${TARGET}
     "src/world/Effect.cpp"
     "src/world/Spell.cpp"
     "src/screen/UI_Mouse.cpp"
+    "src/screen/HUD_Status.cpp"
     "src/main.cpp"
     "src/SceneMain.cpp"
     "src/Spawner.cpp"

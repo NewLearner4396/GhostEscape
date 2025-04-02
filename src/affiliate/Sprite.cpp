@@ -24,7 +24,7 @@ void Sprite::render() {
         return;
     }
     auto pos = parent_->getRenderPosition() + offset_;
-    game_.renderTexture(texture_, pos, size_);
+    game_.renderTexture(texture_, pos, size_, percentage_);
 }
 /**
  * @brief addSprite and link it to the object_parent

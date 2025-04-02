@@ -20,6 +20,7 @@ class Sprite : public ObjectAffiliate {
    protected:
     Texture texture_;
     bool isFinished_ = false;
+    glm::vec2 percentage_ = glm::vec2{1.0f};
 
    public:
     virtual void render() override;
@@ -38,6 +39,8 @@ class Sprite : public ObjectAffiliate {
     void setFlip(bool isFlip) { texture_.isFlip = isFlip; }
     bool getIsFinished() const { return isFinished_; }
     void setIsFinished(bool isFinished) { isFinished_ = isFinished; }
+    glm::vec2 getPercentage() const { return percentage_; }
+    void setPercentage(const glm::vec2& percentage) { percentage_ = percentage; }
 };
 
 #endif

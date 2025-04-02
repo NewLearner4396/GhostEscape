@@ -21,6 +21,7 @@ void Enemy::init() {
     current_anim_ = sprite_normal_;
     collider_ = Collider::addCollider(this, sprite_normal_->getSize());
     status_ = Status::addStatus(this);
+    status_->setDamage(50.0f);
     auto _size = sprite_normal_->getSize();
     health_bar_ = AffiliateBar::addAffiliateBar(this, glm::vec2(_size.x - 10, 10), Anchor::BOTTOM_CENTER);
     health_bar_->setOffset(health_bar_->getOffset() + glm::vec2(0, -_size.y / 2 + 5));

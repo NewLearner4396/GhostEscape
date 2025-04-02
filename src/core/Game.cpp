@@ -147,9 +147,10 @@ void Game::drawBoundary(glm::vec2& leftTop, glm::vec2& rightBottom, float width,
     }
 }
 
-void Game::renderTexture(Texture& texture, const glm::vec2& position, const glm::vec2& size) {
-    SDL_FRect dstRect{position.x, position.y, size.x, size.y};
-    SDL_RenderTextureRotated(renderer_, texture.texture, &texture.srcRect, &dstRect, texture.angle, nullptr,
+void Game::renderTexture(Texture& texture, const glm::vec2& position, const glm::vec2& size, const glm::vec2& mask) {
+    SDL_FRect srcRect{texture.srcRect.x, texture.srcRect.y, texture.srcRect.w * mask.x, texture.srcRect.h * mask.y};
+    SDL_FRect dstRect{position.x, position.y, size.x * mask.x, size.y * mask.y};
+    SDL_RenderTextureRotated(renderer_, texture.texture, &srcRect, &dstRect, texture.angle, nullptr,
                              texture.isFlip ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
 }
 

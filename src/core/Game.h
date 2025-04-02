@@ -51,7 +51,7 @@ class Game {
     }
     void drawGrid(glm::vec2& leftTop, glm::vec2& rightBottom, int gridWidth, int gridHeight, SDL_FColor color);
     void drawBoundary(glm::vec2& leftTop, glm::vec2& rightBottom, float width, SDL_FColor color, bool inner = true);
-    void renderTexture(Texture& texture, const glm::vec2& position, const glm::vec2& size);
+    void renderTexture(Texture& texture, const glm::vec2& position, const glm::vec2& size, const glm::vec2& mask = {1.0f, 1.0f});
     void renderFilledCircle(const glm::vec2& position, const glm::vec2& size, float alpha);
     void renderHBar(const glm::vec2& position, const glm::vec2& size, float percentage, SDL_FColor color);
 

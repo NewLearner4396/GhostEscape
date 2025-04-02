@@ -2,6 +2,7 @@
 
 #include "Effect.h"
 #include "Enemy.h"
+#include "HUD_Status.h"
 #include "Player.h"
 #include "Spawner.h"
 #include "Spell.h"
@@ -25,13 +26,12 @@ void SceneMain::init() {
     addObject(spawner_);
 
     UI_mouse_ = UI_Mouse::addMouse(this, "../assets/UI/29.png", "../assets/UI/30.png", 1.0f, Anchor::CENTER);
+    HUD_status_ = HUD_Status::addHUDStatus(this, player_, glm::vec2{30.0f});
 }
 
 void SceneMain::clean() { Scene::clean(); }
 
-void SceneMain::handleEvents(SDL_Event& event) {
-    Scene::handleEvents(event);
-}
+void SceneMain::handleEvents(SDL_Event& event) { Scene::handleEvents(event); }
 
 void SceneMain::update(float dT) {
     // camera_position_ += glm::vec2(10.0f, 10.0f) * dT;
