@@ -5,13 +5,6 @@
 class Status;
 class AffiliateBar;
 class Actor : public ObjectWorld {
-   protected:
-    Status* status_ = nullptr;  // status of the actor
-    AffiliateBar* health_bar_ = nullptr;  // health bar of the actor
-    glm::vec2 velocity_;
-    float max_speed_ = 50.0f;
-    float angle_ = 0.0f;
-
    public:
     virtual void update(float dT) override {
         ObjectWorld::update(dT);
@@ -34,8 +27,15 @@ class Actor : public ObjectWorld {
     float getAngle() const { return angle_; }
     void setAngle(float angle) { angle_ = angle; }
 
-    private:
-     void updateHealthBar();
+   protected:
+    Status* status_ = nullptr;            // status of the actor
+    AffiliateBar* health_bar_ = nullptr;  // health bar of the actor
+    glm::vec2 velocity_;
+    float max_speed_ = 50.0f;
+    float angle_ = 0.0f;
+
+   private:
+    void updateHealthBar();
 };
 
 #endif  // ACTOR_H

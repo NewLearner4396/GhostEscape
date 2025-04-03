@@ -33,6 +33,7 @@ add_executable(${TARGET}
     "src/world/Spell.cpp"
     "src/screen/UI_Mouse.cpp"
     "src/screen/HUD_Status.cpp"
+    "src/screen/HUD_Skill.cpp"
     "src/main.cpp"
     "src/SceneMain.cpp"
     "src/Spawner.cpp"
@@ -40,7 +41,7 @@ add_executable(${TARGET}
     "src/Player.cpp"
     "src/Enemy.cpp"
 )
-target_include_directories(${TARGET} PRIVATE 
+target_include_directories(${TARGET} PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/src"
     "${CMAKE_CURRENT_SOURCE_DIR}/src/core"
     "${CMAKE_CURRENT_SOURCE_DIR}/src/affiliate"
@@ -51,7 +52,7 @@ target_include_directories(${TARGET} PRIVATE
 
 
 # Here add find package for external libraries
-find_package(SDL3 REQUIRED) 
+find_package(SDL3 REQUIRED)
 find_package(SDL3_ttf REQUIRED)
 find_package(SDL3_image REQUIRED)
 find_package(SDL3_mixer REQUIRED)

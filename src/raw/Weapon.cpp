@@ -8,6 +8,12 @@
 void Weapon::update(float dT) {
     Object::update(dT);
     cooldown_timer_ += dT;  // increase the cooldown timer
+    // if (is_cooldown_) {
+    //     if (cooldown_timer_ >= cooldown_) {
+    //         is_cooldown_ = false;  // reset the cooldown flag
+    //         cooldown_timer_ = 0.0f;  // reset the cooldown timer
+    //     }
+    // } 
 }
 
 bool Weapon::canAttack() {

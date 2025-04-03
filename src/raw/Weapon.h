@@ -19,7 +19,8 @@ class Weapon : public Object {
 
     float mana_cost_ = 0.0f;       // mana cost of the weapon
     float cooldown_ = 1.0f;        // cooldown of the weapon
-    float cooldown_timer_ = 0.0f;  // cooldown time of the weapon
+    float cooldown_timer_ = cooldown_;  // cooldown time of the weapon
+    bool is_cooldown_ = false;  // check if the weapon is in cooldown
 };
 
 #endif  // WEAPON_H

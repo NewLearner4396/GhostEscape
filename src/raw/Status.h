@@ -36,10 +36,10 @@ class Status : public Object {
     void setIsAlive(bool is_alive) { is_alive_ = is_alive; }
     float getInvincibleDuration() const { return invincible_duration_; }
     void setInvincibleDuration(float time_s) { invincible_duration_ = time_s; }
-    bool isInvincible() const { return is_invincible_; }
+    bool getIsInvincible() const { return is_invincible_; }
     void setInvincible(bool is_invincible) { is_invincible_ = is_invincible; }
 
-    static Status* addStatus(Actor* parent, float health = 100.0f, float max_health = 100.0f, float mana = 100.0f,
+    static Status* addStatus(Actor* parent, float health = 100.0f, float max_health = 100.0f, float mana = 150.0f,
                              float max_mana = 150.0f, float mana_regen = 1.0f, float stamina = 50.0f,
                              float max_stamina = 50.0f, float damage = 10.0f);
 
@@ -50,7 +50,7 @@ class Status : public Object {
     float max_health_ = 100.0f;
     float mana_ = 150.0f;
     float max_mana_ = 150.0f;
-    float mana_regen_ = 1.0f;
+    float mana_regen_ = 5.0f;
     float stamina_ = 50.0f;
     float max_stamina_ = 50.0f;
     float damage_ = 20.0f;

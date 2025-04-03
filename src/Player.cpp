@@ -1,8 +1,11 @@
 #include "Player.h"
 
 #include "Collider.h"
+#include "Effect.h"
 #include "Scene.h"
 #include "SpriteAnim.h"
+#include "Status.h"
+#include "WeaponThunder.h"
 
 void Player::init() {
     Actor::init();
@@ -28,16 +31,17 @@ void Player::update(float dT) {
     checkState();
     syncCamera();
     checkIsAlive();
-    // TODO: if player is invincible, add transparency effect to the player
 }
 
 void Player::render() {
     Actor::render();
-    // TODO: render the health bar and mana bar
-    // render player
-    // glm::vec2 start = getRenderPosition();
-    // glm::vec2 end = start + glm::vec2(20.0f, 20.0f);
-    // game_.drawBoundary(start, end, 5.0f, {1.0f, 0.0f, 0.0f, 1.0f}, false);
+    if (getStatus()->getIsInvincible()) {
+        SDL_SetTextureColorModFloat(sprite_idle_->getTexture().texture, 0.3f, 0.3f, 0.3f);
+        SDL_SetTextureColorModFloat(sprite_move_->getTexture().texture, 0.3f, 0.3f, 0.3f);
+    } else {
+        SDL_SetTextureColorModFloat(sprite_idle_->getTexture().texture, 1.0f, 1.0f, 1.0f);
+        SDL_SetTextureColorModFloat(sprite_move_->getTexture().texture, 1.0f, 1.0f, 1.0f);
+    }
 }
 
 void Player::playerMove(float dT) {

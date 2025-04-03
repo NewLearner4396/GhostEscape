@@ -1,11 +1,10 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include "Actor.h"
-#include "Effect.h"
-#include "SpriteAnim.h"
-#include "Status.h"
-#include "WeaponThunder.h"
 
+class SpriteAnim;
+class Effect;
+class WeaponThunder;
 class Player : public Actor {
    public:
     Player() = default;
