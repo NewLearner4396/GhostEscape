@@ -27,6 +27,7 @@ add_executable(${TARGET}
     "src/affiliate/SpriteAnim.cpp"
     "src/affiliate/Collider.cpp"
     "src/affiliate/AffiliateBar.cpp"
+    "src/affiliate/TextLabel.cpp"
     "src/raw/Status.cpp"
     "src/raw/Weapon.cpp"
     "src/world/Effect.cpp"

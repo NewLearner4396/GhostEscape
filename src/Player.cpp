@@ -5,6 +5,7 @@
 #include "Scene.h"
 #include "SpriteAnim.h"
 #include "Status.h"
+#include "TextLabel.h"
 #include "WeaponThunder.h"
 
 void Player::init() {
@@ -19,6 +20,7 @@ void Player::init() {
     status_ = Status::addStatus(this);
     deadEffect_ = Effect::addEffect(nullptr, "../assets/effect/1764.png", getPosition(), 2.0f);
     weapon_thunder_ = WeaponThunder::addWeaponThunder(this, 10.0f, 2.0f);
+    TextLabel::addTextLabel(this, "Player", "../assets/font/VonwaonBitmap-16px.ttf", 16);
 }
 
 void Player::clean() { Actor::clean(); }

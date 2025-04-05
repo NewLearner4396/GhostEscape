@@ -40,6 +40,8 @@ void Game::init(const std::string& title, int width, int height) {
     }
     SDL_SetRenderLogicalPresentation(renderer_, width, height, SDL_LOGICAL_PRESENTATION_LETTERBOX);
 
+    ttf_engine_ = TTF_CreateRendererTextEngine(renderer_);
+
     assetStore_ = new AssetStore(renderer_);
 
     frameInterval_ = 1000000000 / FPS_;
@@ -59,6 +61,10 @@ void Game::clean() {
         assetStore_->clean();
         delete assetStore_;
         assetStore_ = nullptr;
+    }
+    if (ttf_engine_) {
+        TTF_DestroyRendererTextEngine(ttf_engine_);
+        ttf_engine_ = nullptr;
     }
     if (renderer_) {
         SDL_DestroyRenderer(renderer_);
@@ -147,7 +153,7 @@ void Game::drawBoundary(glm::vec2& leftTop, glm::vec2& rightBottom, float width,
     }
 }
 
-void Game::renderTexture(Texture& texture, const glm::vec2& position, const glm::vec2& size, const glm::vec2& mask) {
+void Game::renderTexture(const Texture& texture, const glm::vec2& position, const glm::vec2& size, const glm::vec2& mask) {
     SDL_FRect srcRect{texture.srcRect.x, texture.srcRect.y + texture.srcRect.h * (1 - mask.y),
                       texture.srcRect.w * mask.x, texture.srcRect.h * mask.y};
     SDL_FRect dstRect{position.x, position.y + size.y * (1 - mask.y), size.x * mask.x, size.y * mask.y};
@@ -169,4 +175,9 @@ void Game::renderHBar(const glm::vec2& position, const glm::vec2& size, float pe
     SDL_RenderRect(renderer_, &bar_rect);
     SDL_RenderFillRect(renderer_, &fill_rect);
     SDL_SetRenderDrawColorFloat(renderer_, 0, 0, 0, 1);
+}
+
+TTF_Text* Game::createTTF_Text(const std::string& text, const std::string& font_path, float font_size) {
+    auto font = assetStore_->getFont(font_path, font_size);
+    return TTF_CreateText(ttf_engine_, font, text.c_str(), 0);
 }

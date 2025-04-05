@@ -51,10 +51,10 @@ class Game {
     }
     void drawGrid(glm::vec2& leftTop, glm::vec2& rightBottom, int gridWidth, int gridHeight, SDL_FColor color);
     void drawBoundary(glm::vec2& leftTop, glm::vec2& rightBottom, float width, SDL_FColor color, bool inner = true);
-    void renderTexture(Texture& texture, const glm::vec2& position, const glm::vec2& size, const glm::vec2& mask = {1.0f, 1.0f});
+    void renderTexture(const Texture& texture, const glm::vec2& position, const glm::vec2& size, const glm::vec2& mask = {1.0f, 1.0f});
     void renderFilledCircle(const glm::vec2& position, const glm::vec2& size, float alpha);
     void renderHBar(const glm::vec2& position, const glm::vec2& size, float percentage, SDL_FColor color);
-
+    TTF_Text* createTTF_Text(const std::string& text, const std::string& font_path, float font_size=16);
    private:
     Game();
     Game(const Game&) = delete;
@@ -62,6 +62,7 @@ class Game {
     glm::vec2 window_size_ = {800, 600};
     SDL_Window* window_ = nullptr;
     SDL_Renderer* renderer_ = nullptr;
+    TTF_TextEngine* ttf_engine_ = nullptr;
     glm::vec2 mouse_position_ = {0, 0};
     SDL_MouseButtonFlags mouse_button_ = 0;
     Scene* currentScene_ = nullptr;
