@@ -26,7 +26,7 @@ class Enemy : public Actor {
     SpriteAnim* sprite_dead_ = nullptr;
     SpriteAnim* current_anim_ = nullptr;
     float timer_ = 0.0f;
-
+    float score_ = 10.0f; // score when killed
    private:
     void aim_target(Player* target);
     void move(float dT);

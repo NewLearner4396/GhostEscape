@@ -8,6 +8,7 @@ class Enemy;
 class Spawner;
 class UI_Mouse;
 class HUD_Status;
+class HUD_Text;
 class SceneMain : public Scene {
    public:
     SceneMain() = default;
@@ -27,7 +28,10 @@ class SceneMain : public Scene {
     Spawner* spawner_ = nullptr;
     UI_Mouse* UI_mouse_ = nullptr;
     HUD_Status* HUD_status_ = nullptr;
+    HUD_Text* HUD_text_score_ = nullptr;
+
     void renderBackground();
+    void updateScore();
 };
 
 #endif

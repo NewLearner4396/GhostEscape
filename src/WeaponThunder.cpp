@@ -19,7 +19,7 @@ void WeaponThunder::handleEvents(SDL_Event& event) {
             if (canAttack()) {
                 auto pos = game_.getMousePosition() +
                            game_.getCurrentScene()->getCameraPosition();  // get the mouse position in world coordinates
-                auto spell = Spell::addSpell(nullptr, "../assets/effect/Thunderstrike w blur.png", pos, 2.0f, 40.0f,
+                auto spell = Spell::addSpell(nullptr, "../assets/effect/Thunderstrike w blur.png", pos, 2.0f, 60.0f,
                                              Anchor::CENTER);
                 attack(pos, spell);  // attack with the spell
                 cooldown_timer_ = 0.0f;  // reset the cooldown timer

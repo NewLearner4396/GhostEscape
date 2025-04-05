@@ -19,8 +19,8 @@ void Player::init() {
     collider_ = Collider::addCollider(this, sprite_idle_->getSize() / 2.0f);
     status_ = Status::addStatus(this);
     deadEffect_ = Effect::addEffect(nullptr, "../assets/effect/1764.png", getPosition(), 2.0f);
-    weapon_thunder_ = WeaponThunder::addWeaponThunder(this, 10.0f, 2.0f);
-    TextLabel::addTextLabel(this, "Player", "../assets/font/VonwaonBitmap-16px.ttf", 16);
+    weapon_thunder_ = WeaponThunder::addWeaponThunder(this, 10.0f, 0.5f);
+    TextLabel::addTextLabel(this, "Player", "../assets/font/VonwaonBitmap-16px.ttf", 16, Anchor::TOP_CENTER);
 }
 
 void Player::clean() { Actor::clean(); }

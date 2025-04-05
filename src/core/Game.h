@@ -39,6 +39,13 @@ class Game {
     void setMousePosition(const glm::vec2& position) { mouse_position_ = position; }
     SDL_MouseButtonFlags getMouseButton() const { return mouse_button_; }
     void setMouseButton(SDL_MouseButtonFlags button) { mouse_button_ = button; }
+    float getScore() const { return score_; }
+    void setScore(float score) {
+        score_ = score;
+        high_score_ = std::max(high_score_, score_);
+    }
+    float getHighScore() const { return high_score_; }
+    void setHighScore(float high_score) { high_score_ = high_score; }
 
     // utility functions
     float randomFloat(float min, float max) { return std::uniform_real_distribution<float>(min, max)(gen_); }
@@ -51,10 +58,12 @@ class Game {
     }
     void drawGrid(glm::vec2& leftTop, glm::vec2& rightBottom, int gridWidth, int gridHeight, SDL_FColor color);
     void drawBoundary(glm::vec2& leftTop, glm::vec2& rightBottom, float width, SDL_FColor color, bool inner = true);
-    void renderTexture(const Texture& texture, const glm::vec2& position, const glm::vec2& size, const glm::vec2& mask = {1.0f, 1.0f});
+    void renderTexture(const Texture& texture, const glm::vec2& position, const glm::vec2& size,
+                       const glm::vec2& mask = {1.0f, 1.0f});
     void renderFilledCircle(const glm::vec2& position, const glm::vec2& size, float alpha);
     void renderHBar(const glm::vec2& position, const glm::vec2& size, float percentage, SDL_FColor color);
-    TTF_Text* createTTF_Text(const std::string& text, const std::string& font_path, float font_size=16);
+    TTF_Text* createTTF_Text(const std::string& text, const std::string& font_path, float font_size = 16);
+
    private:
     Game();
     Game(const Game&) = delete;
@@ -73,5 +82,8 @@ class Game {
     float frameCurrentInterval_ = 0.0f;
     AssetStore* assetStore_ = nullptr;
     std::mt19937 gen_ = std::mt19937(std::random_device{}());  // random number generator
+
+    float score_ = 0.0f;       // score of the game
+    float high_score_ = 0.0f;  // high score of the game
 };
 #endif  // GAME_H

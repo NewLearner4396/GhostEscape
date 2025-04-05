@@ -35,6 +35,7 @@ add_executable(${TARGET}
     "src/screen/UI_Mouse.cpp"
     "src/screen/HUD_Status.cpp"
     "src/screen/HUD_Skill.cpp"
+    "src/screen/HUD_Text.cpp"
     "src/main.cpp"
     "src/SceneMain.cpp"
     "src/Spawner.cpp"

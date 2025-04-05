@@ -8,7 +8,7 @@ class Player;
 class Spawner : public Object {
     protected:
     int num_objects_ = 0;
-    int max_objects_ = 5;
+    int max_objects_ = 20;
     float timer_ = 0.0f;
     float interval_ = 1.0f;
     Player* target_ = nullptr; // target to spawn enemies

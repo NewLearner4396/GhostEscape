@@ -3,6 +3,7 @@
 #include "Effect.h"
 #include "Enemy.h"
 #include "HUD_Status.h"
+#include "HUD_Text.h"
 #include "Player.h"
 #include "Spawner.h"
 #include "Spell.h"
@@ -25,8 +26,11 @@ void SceneMain::init() {
     spawner_->setTarget(player_);
     addObject(spawner_);
 
-    UI_mouse_ = UI_Mouse::addMouse(this, "../assets/UI/29.png", "../assets/UI/30.png", 1.0f, Anchor::CENTER);
     HUD_status_ = HUD_Status::addHUDStatus(this, player_, glm::vec2{30.0f});
+    HUD_text_score_ =
+        HUD_Text::addHUDText(this, "Score: 0", glm::vec2{game_.getWindowSize().x - 120.0f, 30.0f}, glm::vec2{200, 50});
+
+    UI_mouse_ = UI_Mouse::addMouse(this, "../assets/UI/29.png", "../assets/UI/30.png", 1.0f, Anchor::CENTER);
 }
 
 void SceneMain::clean() { Scene::clean(); }
@@ -36,12 +40,14 @@ void SceneMain::handleEvents(SDL_Event& event) { Scene::handleEvents(event); }
 void SceneMain::update(float dT) {
     // camera_position_ += glm::vec2(10.0f, 10.0f) * dT;
     Scene::update(dT);
+    updateScore();
 }
 
 void SceneMain::render() {
     renderBackground();
     Scene::render();
 }
+
 void SceneMain::renderBackground() {
     // render Grid
     glm::vec2 leftTop = -camera_position_;
@@ -51,4 +57,8 @@ void SceneMain::renderBackground() {
     glm::vec2 boundaryStart = leftTop;
     glm::vec2 boundaryEnd = rightBottom;
     game_.drawBoundary(boundaryStart, boundaryEnd, 10.0f, {1.0f, 1.0f, 1.0f, 1.0f}, true);
+}
+
+void SceneMain::updateScore() {
+    HUD_text_score_->setText("Score: " + std::to_string(static_cast<int>(game_.getScore())));
 }

@@ -9,7 +9,7 @@ class Spell : public ObjectWorld {
     virtual void update(float dT) override;
 
     static Spell* addSpell(Object* parent, const std::string& file_path, glm::vec2 pos, float scale = 1.0f,
-                           float damage = 30.0f, Anchor anchor = Anchor::CENTER);
+                           float damage = 120.0f, Anchor anchor = Anchor::CENTER);
 
     // getters and setters
     float getDamage() const { return damage_; }
@@ -19,7 +19,7 @@ class Spell : public ObjectWorld {
 
    protected:
     SpriteAnim* sprite_ = nullptr;  // sprite of the spell
-    float damage_ = 30.0f;          // damage of the spell
+    float damage_ = 120.0f;          // damage of the spell
     // TODO: add when the spell is effect
     bool can_effect_ = true;      // if the spell can effect the target
    private:

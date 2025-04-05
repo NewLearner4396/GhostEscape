@@ -84,25 +84,26 @@ void Enemy::checkState() {
 void Enemy::changeState(EnemyState new_state) {
     current_anim_->setActive(false);
     switch (new_state) {
-        case EnemyState::NORMAL:
-            current_anim_ = sprite_normal_;
-            current_anim_->setActive(true);
-            break;
-        case EnemyState::HURT:
-            current_anim_ = sprite_hurt_;
-            current_anim_->setActive(true);
-            break;
-        case EnemyState::DEAD:
-            current_anim_ = sprite_dead_;
-            current_anim_->setActive(true);
-            break;
+    case EnemyState::NORMAL:
+        current_anim_ = sprite_normal_;
+        current_anim_->setActive(true);
+        break;
+    case EnemyState::HURT:
+        current_anim_ = sprite_hurt_;
+        current_anim_->setActive(true);
+        break;
+    case EnemyState::DEAD:
+        current_anim_ = sprite_dead_;
+        current_anim_->setActive(true);
+        game_.setScore(game_.getScore() + score_);
+        break;
     }
     current_state_ = new_state;
 }
 
 /**
  * @brief Check if the enemy is dead and remove it from the scene
- * 
+ *
  */
 void Enemy::remove() {
     if (sprite_dead_->getIsFinished()) {
