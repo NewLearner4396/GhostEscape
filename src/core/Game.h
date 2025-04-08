@@ -58,8 +58,8 @@ class Game {
         return {randomInt(min.x, max.x), randomInt(min.y, max.y)};
     }
     //* draw functions 
-    void drawGrid(glm::vec2& leftTop, glm::vec2& rightBottom, int gridWidth, int gridHeight, SDL_FColor color);
-    void drawBoundary(glm::vec2& leftTop, glm::vec2& rightBottom, float width, SDL_FColor color, bool inner = true);
+    void drawGrid(const glm::vec2& leftTop, const glm::vec2& rightBottom, int gridWidth, int gridHeight, SDL_FColor color);
+    void drawBoundary(const glm::vec2& leftTop, const glm::vec2& rightBottom, float width, SDL_FColor color, bool inner = true);
     //* render functions
     void renderTexture(const Texture& texture, const glm::vec2& position, const glm::vec2& size,
                        const glm::vec2& mask = {1.0f, 1.0f});

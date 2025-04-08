@@ -1,5 +1,6 @@
 #include "game.h"
 
+#include "SceneTitle.h"
 #include "SceneMain.h"
 #include "sprite.h"
 Game::Game() {
@@ -45,7 +46,7 @@ void Game::init(const std::string& title, int width, int height) {
     assetStore_ = new AssetStore(renderer_);
 
     frameInterval_ = 1000000000 / FPS_;
-    currentScene_ = new SceneMain();
+    currentScene_ = new SceneTitle();
     currentScene_->init();
     isRunning = true;
     exeRunning = true;
@@ -125,7 +126,7 @@ void Game::render() {
     SDL_RenderPresent(renderer_);
 }
 
-void Game::drawGrid(glm::vec2& leftTop, glm::vec2& rightBottom, int gridWidth, int gridHeight, SDL_FColor color) {
+void Game::drawGrid(const glm::vec2& leftTop, const glm::vec2& rightBottom, int gridWidth, int gridHeight, SDL_FColor color) {
     SDL_SetRenderDrawColorFloat(renderer_, color.r, color.g, color.b, color.a);
     if (gridWidth <= 0 || gridHeight <= 0) {
         return;
@@ -143,7 +144,7 @@ void Game::drawGrid(glm::vec2& leftTop, glm::vec2& rightBottom, int gridWidth, i
     SDL_SetRenderDrawColorFloat(renderer_, 0, 0, 0, 1);
 }
 
-void Game::drawBoundary(glm::vec2& leftTop, glm::vec2& rightBottom, float width, SDL_FColor color, bool inner) {
+void Game::drawBoundary(const glm::vec2& leftTop, const glm::vec2& rightBottom, float width, SDL_FColor color, bool inner) {
     SDL_SetRenderDrawColorFloat(renderer_, color.r, color.g, color.b, color.a);
     for (int i = 0; i < width; ++i) {
         SDL_FRect rect{leftTop.x + (2 * inner - 1) * i, leftTop.y + (2 * inner - 1) * i,
@@ -151,6 +152,7 @@ void Game::drawBoundary(glm::vec2& leftTop, glm::vec2& rightBottom, float width,
                        rightBottom.y - leftTop.y - (2 * inner - 1) * 2 * i};
         SDL_RenderRect(renderer_, &rect);
     }
+    SDL_SetRenderDrawColorFloat(renderer_, 0, 0, 0, 1);
 }
 
 void Game::renderTexture(const Texture& texture, const glm::vec2& position, const glm::vec2& size, const glm::vec2& mask) {
