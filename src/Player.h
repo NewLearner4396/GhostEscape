@@ -16,6 +16,8 @@ class Player : public Actor {
     void update(float dT) override;
     void render() override;
 
+    void takeDamage(float damage) override;
+
     void playerMove(float dT);
     void syncCamera();
     void checkState();

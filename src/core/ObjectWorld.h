@@ -7,6 +7,9 @@ class ObjectWorld : public ObjectScreen {
    public:
     virtual void init() override { object_type_ = ObjectType::OBJECT_WORLD; }
     virtual void update(float dT) override;
+
+    virtual void takeDamage(float) {return;}
+
     // getters and setters
     glm::vec2 getRenderPosition() const { return render_position_; }
     virtual void setRenderPosition(const glm::vec2& position) override;

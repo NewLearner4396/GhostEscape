@@ -32,7 +32,7 @@ void Spawner::update(float dT) {
             enemy->setMaxSpeed(game_.randomFloat(30.0f, 50.0f));
 
             Effect::addEffect(currentScene, "../assets/effect/184_3.png", pos, 1.0f, enemy);  // Add enemy to scene
-
+            game_.playSound("../assets/sound/silly-ghost-sound-242342.mp3");
             num_objects_++;  // Increment counter
         }
     }

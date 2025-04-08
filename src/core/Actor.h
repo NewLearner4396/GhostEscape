@@ -12,7 +12,8 @@ class Actor : public ObjectWorld {
         position_ += velocity_ * dT;
     }
 
-    void takeDamage(float damage);
+    virtual void takeDamage(float damage) override;
+
     bool isAlive() const;
 
     // getters and setters

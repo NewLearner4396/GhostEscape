@@ -47,7 +47,8 @@ class Game {
     float getHighScore() const { return high_score_; }
     void setHighScore(float high_score) { high_score_ = high_score; }
 
-    // utility functions
+    //* utility functions
+    //* random functions
     float randomFloat(float min, float max) { return std::uniform_real_distribution<float>(min, max)(gen_); }
     int randomInt(int min, int max) { return std::uniform_int_distribution<int>(min, max)(gen_); }
     glm::vec2 randomVec2(const glm::vec2& min, const glm::vec2& max) {
@@ -56,13 +57,29 @@ class Game {
     glm::ivec2 randomIVec2(const glm::ivec2& min, const glm::ivec2& max) {
         return {randomInt(min.x, max.x), randomInt(min.y, max.y)};
     }
+    //* draw functions 
     void drawGrid(glm::vec2& leftTop, glm::vec2& rightBottom, int gridWidth, int gridHeight, SDL_FColor color);
     void drawBoundary(glm::vec2& leftTop, glm::vec2& rightBottom, float width, SDL_FColor color, bool inner = true);
+    //* render functions
     void renderTexture(const Texture& texture, const glm::vec2& position, const glm::vec2& size,
                        const glm::vec2& mask = {1.0f, 1.0f});
     void renderFilledCircle(const glm::vec2& position, const glm::vec2& size, float alpha);
     void renderHBar(const glm::vec2& position, const glm::vec2& size, float percentage, SDL_FColor color);
     TTF_Text* createTTF_Text(const std::string& text, const std::string& font_path, float font_size = 16);
+    //* music functions
+    void playMusic(const std::string& music_path, bool loops = true){
+        Mix_PlayMusic(assetStore_->getMusic(music_path), loops ? -1 : 0);
+    }
+    void pauseMusic() { Mix_PauseMusic(); }
+    void resumeMusic() { Mix_ResumeMusic(); }
+    void stopMusic() { Mix_HaltMusic(); }
+    // every sound will be operated simultaneously
+    void playSound(const std::string& sound_path) {
+        Mix_PlayChannel(-1, assetStore_->getSound(sound_path), 0);
+    }
+    void pauseSound() { Mix_Pause(-1); }
+    void resumeSound() { Mix_Resume(-1); }
+    void stopSound() { Mix_HaltChannel(-1); }
 
    private:
     Game();

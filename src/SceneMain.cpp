@@ -15,7 +15,8 @@ void SceneMain::init() {
     world_size_ = game_.getWindowSize() * 3.0f;
     camera_size_ = game_.getWindowSize();
     camera_position_ = world_size_ / 2.0f - camera_size_ / 2.0f;
-
+    game_.playMusic("../assets/bgm/OhMyGhost.ogg");
+    
     player_ = new Player();
     player_->init();
     player_->setPosition(world_size_ / 2.0f);

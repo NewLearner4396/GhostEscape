@@ -21,7 +21,8 @@ void WeaponThunder::handleEvents(SDL_Event& event) {
                            game_.getCurrentScene()->getCameraPosition();  // get the mouse position in world coordinates
                 auto spell = Spell::addSpell(nullptr, "../assets/effect/Thunderstrike w blur.png", pos, 2.0f, 60.0f,
                                              Anchor::CENTER);
-                attack(pos, spell);  // attack with the spell
+                game_.playSound("../assets/sound/big-thunder.mp3");
+                attack(pos, spell);      // attack with the spell
                 cooldown_timer_ = 0.0f;  // reset the cooldown timer
             }
         }
@@ -31,8 +32,7 @@ void WeaponThunder::handleEvents(SDL_Event& event) {
 void WeaponThunder::update(float dT) {
     Weapon::update(dT);  // update the weapon
     if (HUD_skill_) {
-        HUD_skill_->setPercentage(
-            (cooldown_timer_ / cooldown_));  // update the HUD skill percentage
+        HUD_skill_->setPercentage((cooldown_timer_ / cooldown_));  // update the HUD skill percentage
     }
 }
 
@@ -43,6 +43,6 @@ WeaponThunder* WeaponThunder::addWeaponThunder(Actor* parent, float mana_cost, f
     weapon->mana_cost_ = mana_cost;     // set the mana cost of the weapon
     weapon->cooldown_ = cooldown;       // set the cooldown of the weapon
     weapon->cooldown_timer_ = cooldown;
-    parent->safeAddObject(weapon);      // add the weapon to the parent actor
-    return weapon;                      // return the weapon object
+    parent->safeAddObject(weapon);  // add the weapon to the parent actor
+    return weapon;                  // return the weapon object
 }

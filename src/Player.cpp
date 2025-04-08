@@ -107,5 +107,13 @@ void Player::checkIsAlive() {
         setActive(false);
         deadEffect_->setPosition(getPosition());
         game_.getCurrentScene()->safeAddObject(deadEffect_);
+        game_.playSound("../assets/sound/female-scream-02-89290.mp3");
     }
+}
+
+void Player::takeDamage(float damage) {
+    if (!status_ || status_->getIsInvincible())
+        return;
+    Actor::takeDamage(damage);
+    game_.playSound("../assets/sound/hit-flesh-02-266309.mp3");
 }
