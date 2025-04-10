@@ -28,6 +28,8 @@ class Game {
     void update(float dT);                                       // update the game state
     void render();                                               // render the game
 
+    void safeChangeScene(Scene* scene) {nextScene_ = scene;}
+    void changeScene(); //* do not call this function directly, use safeChangeScene instead
     void quit() {isRunning_ = false;exeRunning_ = false;}
 
     // getters and setters
@@ -99,6 +101,7 @@ class Game {
     glm::vec2 mouse_position_ = {0, 0};
     SDL_MouseButtonFlags mouse_button_ = 0;
     Scene* currentScene_ = nullptr;
+    Scene* nextScene_ = nullptr;
     bool exeRunning_ = false;
     bool isRunning_ = false;
     int FPS_ = 60;

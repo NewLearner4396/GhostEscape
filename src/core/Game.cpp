@@ -1,7 +1,7 @@
 #include "game.h"
 
-#include "SceneTitle.h"
 #include "SceneMain.h"
+#include "SceneTitle.h"
 #include "sprite.h"
 Game::Game() {
     window_ = nullptr;
@@ -85,6 +85,10 @@ void Game::run() {
     while (exeRunning_) {
         while (isRunning_) {
             auto start = SDL_GetTicksNS();
+            if (nextScene_) {
+                changeScene();
+                nextScene_ = nullptr;
+            }
             handleEvents();
             update(frameCurrentInterval_);
             render();
@@ -126,7 +130,19 @@ void Game::render() {
     SDL_RenderPresent(renderer_);
 }
 
-void Game::drawGrid(const glm::vec2& leftTop, const glm::vec2& rightBottom, int gridWidth, int gridHeight, SDL_FColor color) {
+void Game::changeScene() {
+    if (nextScene_) {
+        if (currentScene_) {
+            currentScene_->clean();
+            delete currentScene_;
+        }
+        currentScene_ = nextScene_;
+        currentScene_->init();
+    }
+}
+
+void Game::drawGrid(const glm::vec2& leftTop, const glm::vec2& rightBottom, int gridWidth, int gridHeight,
+                    SDL_FColor color) {
     SDL_SetRenderDrawColorFloat(renderer_, color.r, color.g, color.b, color.a);
     if (gridWidth <= 0 || gridHeight <= 0) {
         return;
@@ -144,7 +160,8 @@ void Game::drawGrid(const glm::vec2& leftTop, const glm::vec2& rightBottom, int 
     SDL_SetRenderDrawColorFloat(renderer_, 0, 0, 0, 1);
 }
 
-void Game::drawBoundary(const glm::vec2& leftTop, const glm::vec2& rightBottom, float width, SDL_FColor color, bool inner) {
+void Game::drawBoundary(const glm::vec2& leftTop, const glm::vec2& rightBottom, float width, SDL_FColor color,
+                        bool inner) {
     SDL_SetRenderDrawColorFloat(renderer_, color.r, color.g, color.b, color.a);
     for (int i = 0; i < width; ++i) {
         SDL_FRect rect{leftTop.x + (2 * inner - 1) * i, leftTop.y + (2 * inner - 1) * i,
@@ -155,7 +172,8 @@ void Game::drawBoundary(const glm::vec2& leftTop, const glm::vec2& rightBottom, 
     SDL_SetRenderDrawColorFloat(renderer_, 0, 0, 0, 1);
 }
 
-void Game::renderTexture(const Texture& texture, const glm::vec2& position, const glm::vec2& size, const glm::vec2& mask) {
+void Game::renderTexture(const Texture& texture, const glm::vec2& position, const glm::vec2& size,
+                         const glm::vec2& mask) {
     SDL_FRect srcRect{texture.srcRect.x, texture.srcRect.y + texture.srcRect.h * (1 - mask.y),
                       texture.srcRect.w * mask.x, texture.srcRect.h * mask.y};
     SDL_FRect dstRect{position.x, position.y + size.y * (1 - mask.y), size.x * mask.x, size.y * mask.y};

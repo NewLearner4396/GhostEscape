@@ -66,9 +66,7 @@ void SceneTitle::updateBoundaryColor(std::optional<float> a, std::optional<float
 
 void SceneTitle::checkButtonState() {
     if (button_start_->getIsTrigger()) {
-        auto new_scene = new SceneMain();
-        new_scene->init();
-        game_.setCurrentScene(new_scene);
+        game_.safeChangeScene(new SceneMain());
     }
     if (button_quit_->getIsTrigger()) {
         game_.quit();
