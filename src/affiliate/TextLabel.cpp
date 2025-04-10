@@ -23,6 +23,7 @@ TextLabel* TextLabel::addTextLabel(ObjectScreen* parent, const std::string& text
     text_label->setFont(font_path, font_size);
     text_label->setText(text);
     text_label->setAnchor(anchor);
+    text_label->setOffsetByAnchor(anchor);
     text_label->updateTextSize();
     if(parent) {
         parent->safeAddObject(text_label);

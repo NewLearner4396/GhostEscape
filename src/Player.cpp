@@ -20,7 +20,13 @@ void Player::init() {
     status_ = Status::addStatus(this);
     deadEffect_ = Effect::addEffect(nullptr, "../assets/effect/1764.png", getPosition(), 2.0f);
     weapon_thunder_ = WeaponThunder::addWeaponThunder(this, 10.0f, 0.5f);
-    TextLabel::addTextLabel(this, "Player", "../assets/font/VonwaonBitmap-16px.ttf", 16, Anchor::TOP_CENTER);
+    name_label_ =
+        TextLabel::addTextLabel(this, "Player", "../assets/font/VonwaonBitmap-16px.ttf", 16, Anchor::TOP_LEFT);
+    auto _offset_x = -name_label_->getSize().x / 2.0f;
+    auto _offset_y = -sprite_idle_->getSize().y / 2.0f;
+    name_label_->setOffset(glm::vec2(_offset_x, _offset_y));
+    SDL_Log("Player Render position: %f %f", getRenderPosition().x, getRenderPosition().y);
+    SDL_Log("TextLabel offset: %f %f", name_label_->getOffset().x, name_label_->getOffset().y);
 }
 
 void Player::clean() { Actor::clean(); }

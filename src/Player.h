@@ -5,6 +5,7 @@
 class SpriteAnim;
 class Effect;
 class WeaponThunder;
+class TextLabel;
 class Player : public Actor {
    public:
     Player() = default;
@@ -33,6 +34,7 @@ class Player : public Actor {
     SpriteAnim* sprite_move_ = nullptr;
     Effect* deadEffect_ = nullptr;
     WeaponThunder* weapon_thunder_ = nullptr;
+    TextLabel* name_label_ = nullptr;
 };
 
 #endif  // PLAYER_H

@@ -6,8 +6,8 @@
 Game::Game() {
     window_ = nullptr;
     renderer_ = nullptr;
-    exeRunning = false;
-    isRunning = false;
+    exeRunning_ = false;
+    isRunning_ = false;
 }
 
 Game::~Game() { clean(); }
@@ -48,8 +48,8 @@ void Game::init(const std::string& title, int width, int height) {
     frameInterval_ = 1000000000 / FPS_;
     currentScene_ = new SceneTitle();
     currentScene_->init();
-    isRunning = true;
-    exeRunning = true;
+    isRunning_ = true;
+    exeRunning_ = true;
 }
 
 void Game::clean() {
@@ -82,8 +82,8 @@ void Game::clean() {
 }
 
 void Game::run() {
-    while (exeRunning) {
-        while (isRunning) {
+    while (exeRunning_) {
+        while (isRunning_) {
             auto start = SDL_GetTicksNS();
             handleEvents();
             update(frameCurrentInterval_);
@@ -103,8 +103,8 @@ void Game::handleEvents() {
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
         if (event.type == SDL_EVENT_QUIT) {
-            isRunning = false;
-            exeRunning = false;
+            isRunning_ = false;
+            exeRunning_ = false;
         } else
             currentScene_->handleEvents(event);
     }
