@@ -15,6 +15,8 @@ class HUD_Text : public ObjectScreen {
                                 const std::string& bg_path = "../assets/UI/Textfield_01.png",
                                 Anchor anchor = Anchor::CENTER);
 
+    void setBgSizeByText(float margin = 10.0f);  // set the background size based on the text size and margin
+
     // getters and setters
     TextLabel* getTextLabel() const { return text_label_; }
     void setTextLabel(TextLabel* text_label) { this->text_label_ = text_label; }

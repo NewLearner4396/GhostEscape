@@ -16,7 +16,7 @@ class TextLabel : public ObjectAffiliate {
     float getFontSize() const { return font_size_; }
     void setFontSize(float font_size);
     std::string getText() const { return ttf_text_->text; }
-    void setText(const std::string& text) { TTF_SetTextString(ttf_text_, text.c_str(), 0); }
+    void setText(const std::string& text); 
 
    private:
     TTF_Text* ttf_text_;

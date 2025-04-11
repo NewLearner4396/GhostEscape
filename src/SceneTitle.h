@@ -26,12 +26,14 @@ class SceneTitle : public Scene {
     HUD_Button* button_credits_ = nullptr;
     HUD_Button* button_quit_ = nullptr;
 
+    HUD_Text* text_credits_ = nullptr;
+
    private:
     void renderBackground();
     void updateBoundaryColor(std::optional<float> a = std::nullopt, std::optional<float> b = std::nullopt,
                              std::optional<float> c = std::nullopt,
                              std::optional<float> d = std::nullopt);  //? C++17 feature:optional parameter
-                             void checkButtonState();
+    void checkButtonState();
 };
 
 #endif  // SCENETITLE_H

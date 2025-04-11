@@ -1,9 +1,9 @@
 #include "SceneTitle.h"
 
 #include <cmath>
-#include "SceneMain.h"
 #include "HUD_Button.h"
 #include "HUD_Text.h"
+#include "SceneMain.h"
 
 void SceneTitle::init() {
     Scene::init();
@@ -18,24 +18,39 @@ void SceneTitle::init() {
 
     pos = game_.getWindowSize() / 2.0f + glm::vec2(-200, 200);
     button_start_ = HUD_Button::addHUDButton(this, pos, "../assets/UI/A_Start1.png", "../assets/UI/A_Start2.png",
-                                            "../assets/UI/A_Start3.png", 2.0f);
+                                             "../assets/UI/A_Start3.png", 2.0f);
     pos = game_.getWindowSize() / 2.0f + glm::vec2(0, 200);
     button_credits_ = HUD_Button::addHUDButton(this, pos, "../assets/UI/A_Credits1.png", "../assets/UI/A_Credits2.png",
-                                              "../assets/UI/A_Credits3.png", 2.0f);
-                                            pos = game_.getWindowSize() / 2.0f + glm::vec2(200, 200);
+                                               "../assets/UI/A_Credits3.png", 2.0f);
+    pos = game_.getWindowSize() / 2.0f + glm::vec2(200, 200);
     button_quit_ = HUD_Button::addHUDButton(this, pos, "../assets/UI/A_Quit1.png", "../assets/UI/A_Quit2.png",
                                             "../assets/UI/A_Quit3.png", 2.0f);
+
+    auto text = game_.loadTextFile("../assets/data/credits.txt");
+    text_credits_ = HUD_Text::addHUDText(this, text, game_.getWindowSize() / 2.0f, glm::vec2(500, 500),
+                                         "../assets/font/VonwaonBitmap-16px.ttf", 16);
+    text_credits_->setBgSizeByText(50.0f);
+    text_credits_->setActive(false);
 }
 
 void SceneTitle::clean() { Scene::clean(); }
 
-void SceneTitle::handleEvents(SDL_Event& event) { Scene::handleEvents(event); }
+void SceneTitle::handleEvents(SDL_Event& event) { 
+    if(text_credits_->getActive()){
+        if (event.type == SDL_EVENT_MOUSE_BUTTON_UP) {
+            text_credits_->setActive(false);
+            button_start_->setActive(true);
+            button_quit_->setActive(true);
+        }
+    }
+    Scene::handleEvents(event); 
+}
 
 void SceneTitle::update(float dT) {
-    Scene::update(dT);
     color_timer += dT;
-    updateBoundaryColor(0.3f, 0.4f, 0.1f);
+    updateBoundaryColor(0.3f, 0.4f, 0.1f);    
     checkButtonState();
+    Scene::update(dT);
 }
 
 void SceneTitle::render() {
@@ -70,5 +85,10 @@ void SceneTitle::checkButtonState() {
     }
     if (button_quit_->getIsTrigger()) {
         game_.quit();
+    }
+    if (button_credits_->getIsTrigger()) {
+        text_credits_->setActive(true);
+        button_start_->setActive(false);
+        button_quit_->setActive(false);
     }
 }

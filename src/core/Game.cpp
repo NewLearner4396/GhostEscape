@@ -1,5 +1,7 @@
 #include "game.h"
 
+#include <fstream>
+
 #include "SceneMain.h"
 #include "SceneTitle.h"
 #include "sprite.h"
@@ -200,4 +202,15 @@ void Game::renderHBar(const glm::vec2& position, const glm::vec2& size, float pe
 TTF_Text* Game::createTTF_Text(const std::string& text, const std::string& font_path, float font_size) {
     auto font = assetStore_->getFont(font_path, font_size);
     return TTF_CreateText(ttf_engine_, font, text.c_str(), 0);
+}
+
+std::string Game::loadTextFile(const std::string& file_path) {
+    std::ifstream file(file_path);
+    std::string line;
+    std::string text;
+    while (std::getline(file, line)) {
+        text += line + "\n";  // get line do not include \n
+    }
+    file.close();
+    return text;
 }

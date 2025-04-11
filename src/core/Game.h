@@ -89,6 +89,8 @@ class Game {
         return mouse_position_.x >= leftTop.x && mouse_position_.x <= rightBottom.x && mouse_position_.y >= leftTop.y &&
                mouse_position_.y <= rightBottom.y;
     }
+    //* file functions
+    std::string loadTextFile(const std::string& file_path);
 
    private:
     Game();
