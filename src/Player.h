@@ -13,7 +13,7 @@ class Player : public Actor {
 
     void init() override;
     void clean() override;
-    void handleEvents(SDL_Event& event) override;
+    bool handleEvents(SDL_Event& event) override;
     void update(float dT) override;
     void render() override;
 

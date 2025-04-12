@@ -14,30 +14,37 @@ void Scene::clean() {
     objects_screen_.clear();
 }
 
-void Scene::handleEvents(SDL_Event& event) {
-    Object::handleEvents(event);
+bool Scene::handleEvents(SDL_Event& event) {
     for (auto& object : objects_screen_) {
         if (object && object->getActive())
-            object->handleEvents(event);
+            if(object->handleEvents(event))
+            return true;
     }
+    if (is_paused_)
+        return false;
+    Object::handleEvents(event);
     for (auto& object : objects_world_) {
         if (object && object->getActive())
-            object->handleEvents(event);
+            if(object->handleEvents(event))
+            return true;
     }
+    return false;  
 }
 
 void Scene::update(float dT) {
-    Object::update(dT);
-    for (auto iter = objects_world_.begin(); iter != objects_world_.end();) {
-        auto object = *iter;
-        if (object->getNeedRemove()) {
-            iter = objects_world_.erase(iter);
-            object->clean();
-            delete object;
-        } else {
-            if (object->getActive())
-                object->update(dT);
-            ++iter;
+    if (!is_paused_) {
+        Object::update(dT);
+        for (auto iter = objects_world_.begin(); iter != objects_world_.end();) {
+            auto object = *iter;
+            if (object->getNeedRemove()) {
+                iter = objects_world_.erase(iter);
+                object->clean();
+                delete object;
+            } else {
+                if (object->getActive())
+                    object->update(dT);
+                ++iter;
+            }
         }
     }
     for (auto iter = objects_screen_.begin(); iter != objects_screen_.end();) {
@@ -68,35 +75,35 @@ void Scene::render() {
 
 void Scene::addObject(Object* object) {
     switch (object->getObjectType()) {
-        case ObjectType::OBJECT_WORLD:
-        case ObjectType::ENEMY:
-            objects_world_.push_back(
-                dynamic_cast<ObjectWorld*>(object));  // dynamic_cast is used to safely cast for derived classes
-            break;
-        case ObjectType::OBJECT_SCREEN:
-            objects_screen_.push_back(dynamic_cast<ObjectScreen*>(object));
-            break;
-        default:
-            objects_.push_back(object); 
-            break;
+    case ObjectType::OBJECT_WORLD:
+    case ObjectType::ENEMY:
+        objects_world_.push_back(
+            dynamic_cast<ObjectWorld*>(object));  // dynamic_cast is used to safely cast for derived classes
+        break;
+    case ObjectType::OBJECT_SCREEN:
+        objects_screen_.push_back(dynamic_cast<ObjectScreen*>(object));
+        break;
+    default:
+        objects_.push_back(object);
+        break;
     }
 }
 
 void Scene::removeObject(Object* object) {
     switch (object->getObjectType()) {
-        case ObjectType::OBJECT_WORLD:
-        case ObjectType::ENEMY:
-            objects_world_.erase(
-                std::remove(objects_world_.begin(), objects_world_.end(), static_cast<ObjectWorld*>(object)),
-                objects_world_.end());
-            break;
-        case ObjectType::OBJECT_SCREEN:
-            objects_screen_.erase(
-                std::remove(objects_screen_.begin(), objects_screen_.end(), static_cast<ObjectScreen*>(object)),
-                objects_screen_.end());
-            break;
-        default:
-            break;
+    case ObjectType::OBJECT_WORLD:
+    case ObjectType::ENEMY:
+        objects_world_.erase(
+            std::remove(objects_world_.begin(), objects_world_.end(), static_cast<ObjectWorld*>(object)),
+            objects_world_.end());
+        break;
+    case ObjectType::OBJECT_SCREEN:
+        objects_screen_.erase(
+            std::remove(objects_screen_.begin(), objects_screen_.end(), static_cast<ObjectScreen*>(object)),
+            objects_screen_.end());
+        break;
+    default:
+        break;
     }
 }
 

@@ -13,7 +13,7 @@ void WeaponThunder::init() {
     // TODO: set the collider of the spell
 }
 
-void WeaponThunder::handleEvents(SDL_Event& event) {
+bool WeaponThunder::handleEvents(SDL_Event& event) {
     if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
         if (event.button.button == SDL_BUTTON_LEFT) {
             if (canAttack()) {
@@ -24,9 +24,11 @@ void WeaponThunder::handleEvents(SDL_Event& event) {
                 game_.playSound("../assets/sound/big-thunder.mp3");
                 attack(pos, spell);      // attack with the spell
                 cooldown_timer_ = 0.0f;  // reset the cooldown timer
+                return true;
             }
         }
     }
+    return false;
 }
 
 void WeaponThunder::update(float dT) {

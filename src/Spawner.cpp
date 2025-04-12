@@ -9,9 +9,6 @@ void Spawner::update(float dT) {
     if (timer_ >= interval_) {
         timer_ = 0.0f;
         if (!target_ || !target_->getActive()) {
-#ifdef DEBUG_MODE
-            SDL_Log("Error: Target is null or inactive in Spawner::update()");
-#endif
             return;  // target is not active, do not spawn enemies
         }
         auto currentScene = game_.getCurrentScene();

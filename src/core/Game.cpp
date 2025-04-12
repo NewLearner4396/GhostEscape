@@ -46,6 +46,14 @@ void Game::init(const std::string& title, int width, int height) {
     ttf_engine_ = TTF_CreateRendererTextEngine(renderer_);
 
     assetStore_ = new AssetStore(renderer_);
+    // load high score from file
+    std::ifstream file("../assets/data/high_score.txt");
+    if (file.is_open()) {
+        file >> high_score_;
+        file.close();
+    } else {
+        std::cerr << "Failed to open high score file: " << std::strerror(errno) << std::endl;
+    }
 
     frameInterval_ = 1000000000 / FPS_;
     currentScene_ = new SceneTitle();
@@ -55,6 +63,14 @@ void Game::init(const std::string& title, int width, int height) {
 }
 
 void Game::clean() {
+    // save high score to file
+    std::ofstream file("../assets/data/high_score.txt");
+    if (file.is_open()) {
+        file << high_score_;
+        file.close();
+    } else {
+        std::cerr << "Failed to open high score file: " << std::strerror(errno) << std::endl;
+    }
     if (currentScene_) {
         currentScene_->clean();
         delete currentScene_;

@@ -1,10 +1,12 @@
 #include "Object.h"
 
-void Object::handleEvents(SDL_Event& event) {
+bool Object::handleEvents(SDL_Event& event) {
     for (auto& object : objects_) {
         if (object->getActive())
-            object->handleEvents(event);
+            if (object->handleEvents(event)) // If the event is handled by the object, return true
+                return true;
     }
+    return false;  // Return false to indicate that the event was not handled
 }
 
 void Object::update(float dT) {

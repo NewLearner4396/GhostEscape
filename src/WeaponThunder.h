@@ -7,7 +7,7 @@ class HUD_Skill;
 class WeaponThunder : public Weapon {
    public:
     virtual void init() override ;
-    virtual void handleEvents(SDL_Event& event) override;
+    virtual bool handleEvents(SDL_Event& event) override;
     virtual void update(float dT) override;
 
     static WeaponThunder* addWeaponThunder(Actor* parent, float mana_cost, float cooldown);

@@ -7,6 +7,9 @@
 
 void SceneTitle::init() {
     Scene::init();
+    SDL_ShowCursor();
+    game_.playMusic("../assets/bgm/Spooky music.mp3");
+
     auto pos = game_.getWindowSize() / 2.0f - glm::vec2(0, 100);
     auto size = glm::vec2(game_.getWindowSize().x / 2.0f, game_.getWindowSize().y / 3.0f);
     HUD_Text::addHUDText(this, " GHOST ESCAPE", pos, size, "../assets/font/VonwaonBitmap-16px.ttf", 64);
@@ -35,15 +38,18 @@ void SceneTitle::init() {
 
 void SceneTitle::clean() { Scene::clean(); }
 
-void SceneTitle::handleEvents(SDL_Event& event) { 
+bool SceneTitle::handleEvents(SDL_Event& event) { 
     if(text_credits_->getActive()){
         if (event.type == SDL_EVENT_MOUSE_BUTTON_UP) {
             text_credits_->setActive(false);
             button_start_->setActive(true);
             button_quit_->setActive(true);
+            return true;
         }
     }
-    Scene::handleEvents(event); 
+    if(Scene::handleEvents(event))
+        return true;
+    return false;
 }
 
 void SceneTitle::update(float dT) {

@@ -9,6 +9,7 @@ class Spawner;
 class UI_Mouse;
 class HUD_Status;
 class HUD_Text;
+class HUD_Button;
 class SceneMain : public Scene {
    public:
     SceneMain() = default;
@@ -16,7 +17,7 @@ class SceneMain : public Scene {
 
     void init() override;
     void clean() override;
-    void handleEvents(SDL_Event& event) override;
+    bool handleEvents(SDL_Event& event) override;
     void update(float dT) override;
     void render() override;
 
@@ -29,9 +30,16 @@ class SceneMain : public Scene {
     UI_Mouse* UI_mouse_ = nullptr;
     HUD_Status* HUD_status_ = nullptr;
     HUD_Text* HUD_text_score_ = nullptr;
+    HUD_Button* HUD_button_pause_ = nullptr;
+    HUD_Button* HUD_button_restart_ = nullptr;
+    HUD_Button* HUD_button_back_ = nullptr;
+
+    float timer_ = 0.0f;
 
     void renderBackground();
     void updateScore();
+    void checkButtonState();
+    void checkPlayerAlive(float dT);
 };
 
 #endif

@@ -6,7 +6,7 @@
 class Sprite;
 class HUD_Button : public ObjectScreen {
    public:
-    void handleEvents(SDL_Event& event) override;
+    bool handleEvents(SDL_Event& event) override;
     void update(float) override {
         checkHover();
         checkState();

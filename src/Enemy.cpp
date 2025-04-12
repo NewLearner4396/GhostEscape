@@ -96,6 +96,9 @@ void Enemy::changeState(EnemyState new_state) {
         current_anim_ = sprite_dead_;
         current_anim_->setActive(true);
         game_.setScore(game_.getScore() + score_);
+        if (game_.getScore() > game_.getHighScore()) {
+            game_.setHighScore(game_.getScore());
+        }
         break;
     }
     current_state_ = new_state;

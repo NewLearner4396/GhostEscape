@@ -16,7 +16,7 @@ class Object {
 
     virtual void init() = 0;
     virtual void clean();
-    virtual void handleEvents(SDL_Event& event);
+    virtual bool handleEvents(SDL_Event& event); //* return true if event is handled and should not be passed to other objects
     virtual void update(float dT);
     virtual void render();
 

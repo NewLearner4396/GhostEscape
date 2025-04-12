@@ -25,13 +25,15 @@ void Player::init() {
     auto _offset_x = -name_label_->getSize().x / 2.0f;
     auto _offset_y = -sprite_idle_->getSize().y / 2.0f;
     name_label_->setOffset(glm::vec2(_offset_x, _offset_y));
-    SDL_Log("Player Render position: %f %f", getRenderPosition().x, getRenderPosition().y);
-    SDL_Log("TextLabel offset: %f %f", name_label_->getOffset().x, name_label_->getOffset().y);
 }
 
 void Player::clean() { Actor::clean(); }
 
-void Player::handleEvents(SDL_Event& event) { Actor::handleEvents(event); }
+bool Player::handleEvents(SDL_Event& event) {
+    if (Actor::handleEvents(event))
+        return true;
+    return false;
+}
 
 void Player::update(float dT) {
     Actor::update(dT);
