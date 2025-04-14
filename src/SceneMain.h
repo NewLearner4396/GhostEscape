@@ -10,6 +10,7 @@ class UI_Mouse;
 class HUD_Status;
 class HUD_Text;
 class HUD_Button;
+class Timer;
 class SceneMain : public Scene {
    public:
     SceneMain() = default;
@@ -33,13 +34,12 @@ class SceneMain : public Scene {
     HUD_Button* HUD_button_pause_ = nullptr;
     HUD_Button* HUD_button_restart_ = nullptr;
     HUD_Button* HUD_button_back_ = nullptr;
-
-    float timer_ = 0.0f;
+    Timer* end_timer_ = nullptr;
 
     void renderBackground();
     void updateScore();
     void checkButtonState();
-    void checkPlayerAlive(float dT);
+    void checkEndTimer();
 };
 
 #endif

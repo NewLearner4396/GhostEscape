@@ -22,6 +22,7 @@ add_executable(${TARGET}
     "src/core/ObjectWorld.cpp"
     "src/core/AssetStore.cpp"
     "src/core/Actor.cpp"
+    "src/core/Timer.cpp"
     "src/core/Scene.cpp"
     "src/affiliate/Sprite.cpp"
     "src/affiliate/SpriteAnim.cpp"

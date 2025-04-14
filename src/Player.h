@@ -6,6 +6,7 @@ class SpriteAnim;
 class Effect;
 class WeaponThunder;
 class TextLabel;
+class Timer;
 class Player : public Actor {
    public:
     Player() = default;
@@ -35,6 +36,7 @@ class Player : public Actor {
     Effect* deadEffect_ = nullptr;
     WeaponThunder* weapon_thunder_ = nullptr;
     TextLabel* name_label_ = nullptr;
+    Timer* blink_timer_ = nullptr;
 };
 
 #endif  // PLAYER_H

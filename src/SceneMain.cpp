@@ -11,6 +11,7 @@
 #include "Spawner.h"
 #include "Spell.h"
 #include "UI_Mouse.h"
+#include "Timer.h"
 
 void SceneMain::init() {
     SDL_HideCursor();  // Hide the system cursor for a better experience
@@ -45,6 +46,8 @@ void SceneMain::init() {
                                  "../assets/UI/A_Back2.png", "../assets/UI/A_Back3.png", 1.0f);
 
     UI_mouse_ = UI_Mouse::addMouse(this, "../assets/UI/29.png", "../assets/UI/30.png", 1.0f, Anchor::CENTER);
+
+    end_timer_ = Timer::addTimer(this, 4.0f);
 }
 
 void SceneMain::clean() { Scene::clean(); }
@@ -59,7 +62,9 @@ void SceneMain::update(float dT) {
     Scene::update(dT);
     updateScore();
     checkButtonState();
-    checkPlayerAlive(dT);
+    if(player_ && !player_->getActive())
+        end_timer_->start();
+    checkEndTimer();
 }
 
 void SceneMain::render() {
@@ -90,20 +95,22 @@ void SceneMain::checkButtonState() {
             pause();
     }
     if (HUD_button_restart_->getIsTrigger()) {
+        game_.setScore(0);
         game_.safeChangeScene(new SceneMain());
     }
     if (HUD_button_back_->getIsTrigger()) {
+        game_.setScore(0);
         game_.safeChangeScene(new SceneTitle());
     }
 }
 
-void SceneMain::checkPlayerAlive(float dT) {
-    if(player_->getStatus()->getIsAlive()) 
+void SceneMain::checkEndTimer() {
+    if (!end_timer_->getIsTimeOut())
         return;
-    else{
-        timer_ += dT;
-        if(timer_ > 2.0f){
-            game_.safeChangeScene(new SceneTitle());
-        }
-    }
+    pause();
+    HUD_button_restart_ -> setRenderPosition(game_.getWindowSize()/2.0f - glm::vec2{200, 0});
+    HUD_button_restart_ -> setScale(4.0f);
+    HUD_button_back_ -> setRenderPosition(game_.getWindowSize()/2.0f + glm::vec2{200, 0});
+    HUD_button_back_ -> setScale(4.0f);
+    HUD_button_pause_ ->setActive(false);
 }

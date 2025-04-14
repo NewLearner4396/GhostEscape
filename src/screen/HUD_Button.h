@@ -18,6 +18,8 @@ class HUD_Button : public ObjectScreen {
 
     void checkHover();
     void checkState();
+
+    void setScale(float scale);
     // getters and setters
     bool getIsHover() const { return is_hover_; }
     void setIsHover(bool is_hover) { is_hover_ = is_hover; }

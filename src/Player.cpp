@@ -6,6 +6,7 @@
 #include "SpriteAnim.h"
 #include "Status.h"
 #include "TextLabel.h"
+#include "Timer.h"
 #include "WeaponThunder.h"
 
 void Player::init() {
@@ -25,6 +26,9 @@ void Player::init() {
     auto _offset_x = -name_label_->getSize().x / 2.0f;
     auto _offset_y = -sprite_idle_->getSize().y / 2.0f;
     name_label_->setOffset(glm::vec2(_offset_x, _offset_y));
+
+    blink_timer_ = Timer::addTimer(this, 0.4f, true);
+    blink_timer_->start();
 }
 
 void Player::clean() { Actor::clean(); }
@@ -44,14 +48,17 @@ void Player::update(float dT) {
 }
 
 void Player::render() {
-    Actor::render();
     if (getStatus()->getIsInvincible()) {
         SDL_SetTextureColorModFloat(sprite_idle_->getTexture().texture, 0.3f, 0.3f, 0.3f);
         SDL_SetTextureColorModFloat(sprite_move_->getTexture().texture, 0.3f, 0.3f, 0.3f);
+        if (blink_timer_->getProgress() > 0.5f) {
+            return;
+        }
     } else {
         SDL_SetTextureColorModFloat(sprite_idle_->getTexture().texture, 1.0f, 1.0f, 1.0f);
         SDL_SetTextureColorModFloat(sprite_move_->getTexture().texture, 1.0f, 1.0f, 1.0f);
     }
+    Actor::render();
 }
 
 void Player::playerMove(float dT) {
