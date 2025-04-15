@@ -1,17 +1,18 @@
 #include "SceneMain.h"
 #include "SceneTitle.h"
 
+#include <fstream>
 #include "Effect.h"
 #include "Enemy.h"
 #include "HUD_Button.h"
 #include "HUD_Status.h"
 #include "HUD_Text.h"
 #include "Player.h"
-#include "Status.h"
 #include "Spawner.h"
 #include "Spell.h"
-#include "UI_Mouse.h"
+#include "Status.h"
 #include "Timer.h"
+#include "UI_Mouse.h"
 
 void SceneMain::init() {
     SDL_HideCursor();  // Hide the system cursor for a better experience
@@ -50,10 +51,13 @@ void SceneMain::init() {
     end_timer_ = Timer::addTimer(this, 4.0f);
 }
 
-void SceneMain::clean() { Scene::clean(); }
+void SceneMain::clean() {
+    saveData("../assets/data/score.dat");  // Save the Highscore to file
+    Scene::clean();
+}
 
-bool SceneMain::handleEvents(SDL_Event& event) { 
-    if(Scene::handleEvents(event))
+bool SceneMain::handleEvents(SDL_Event& event) {
+    if (Scene::handleEvents(event))
         return true;
     return false;
 }
@@ -62,7 +66,7 @@ void SceneMain::update(float dT) {
     Scene::update(dT);
     updateScore();
     checkButtonState();
-    if(player_ && !player_->getActive())
+    if (player_ && !player_->getActive())
         end_timer_->start();
     checkEndTimer();
 }
@@ -70,6 +74,17 @@ void SceneMain::update(float dT) {
 void SceneMain::render() {
     renderBackground();
     Scene::render();
+}
+
+void SceneMain::saveData(const std::string& file_path) {
+    std::ofstream file(file_path, std::ios::out | std::ios::binary);  // Open file in binary mode
+    if (file.is_open()) {
+        auto score = game_.getHighScore();
+        file.write(reinterpret_cast<const char*>(&score), sizeof(score));  // Write the score to the file
+        file.close();
+    } else {
+        std::cerr << "Error opening file for writing: " << file_path << std::endl;
+    }
 }
 
 void SceneMain::renderBackground() {
@@ -108,9 +123,9 @@ void SceneMain::checkEndTimer() {
     if (!end_timer_->getIsTimeOut())
         return;
     pause();
-    HUD_button_restart_ -> setRenderPosition(game_.getWindowSize()/2.0f - glm::vec2{200, 0});
-    HUD_button_restart_ -> setScale(4.0f);
-    HUD_button_back_ -> setRenderPosition(game_.getWindowSize()/2.0f + glm::vec2{200, 0});
-    HUD_button_back_ -> setScale(4.0f);
-    HUD_button_pause_ ->setActive(false);
+    HUD_button_restart_->setRenderPosition(game_.getWindowSize() / 2.0f - glm::vec2{200, 0});
+    HUD_button_restart_->setScale(4.0f);
+    HUD_button_back_->setRenderPosition(game_.getWindowSize() / 2.0f + glm::vec2{200, 0});
+    HUD_button_back_->setScale(4.0f);
+    HUD_button_pause_->setActive(false);
 }

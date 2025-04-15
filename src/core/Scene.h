@@ -17,6 +17,9 @@ class Scene : public Object {
     virtual void addObject(Object* object) override;
     virtual void removeObject(Object* object) override;
 
+    virtual void saveData(const std::string&) {}
+    virtual void loadData(const std::string&) {}
+
     bool getIsPaused() const { return is_paused_; }
     void setIsPaused(bool is_paused) { is_paused_ = is_paused; }
     glm::vec2 getWorldSize() const { return world_size_; }
@@ -31,8 +34,14 @@ class Scene : public Object {
     std::vector<ObjectWorld*>& getObjectsWorld() { return objects_world_; }
     std::vector<ObjectScreen*>& getObjectsScreen() { return objects_screen_; }
 
-    void pause() { is_paused_ = true; game_.pauseSound(); }
-    void resume() { is_paused_ = false; game_.resumeSound(); }
+    void pause() {
+        is_paused_ = true;
+        game_.pauseSound();
+    }
+    void resume() {
+        is_paused_ = false;
+        game_.resumeSound();
+    }
 
    protected:
     bool is_paused_ = false;

@@ -18,6 +18,7 @@ class SceneTitle : public Scene {
     void update(float dT) override;
     void render() override;
 
+    void loadData(const std::string& file_path) override;
    protected:
     SDL_FColor boundary_color_ = {0.5f, 0.5f, 0.5f, 1.0f};
     float color_timer = 0.0f;

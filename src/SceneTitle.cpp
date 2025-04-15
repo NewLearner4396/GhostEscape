@@ -1,6 +1,7 @@
 #include "SceneTitle.h"
 
 #include <cmath>
+#include <fstream>
 #include "HUD_Button.h"
 #include "HUD_Text.h"
 #include "SceneMain.h"
@@ -9,6 +10,7 @@ void SceneTitle::init() {
     Scene::init();
     SDL_ShowCursor();
     game_.playMusic("../assets/bgm/Spooky music.mp3");
+    loadData("../assets/data/score.dat");
 
     auto pos = game_.getWindowSize() / 2.0f - glm::vec2(0, 100);
     auto size = glm::vec2(game_.getWindowSize().x / 2.0f, game_.getWindowSize().y / 3.0f);
@@ -62,6 +64,18 @@ void SceneTitle::update(float dT) {
 void SceneTitle::render() {
     renderBackground();
     Scene::render();
+}
+
+void SceneTitle::loadData(const std::string& file_path) {
+    std::fstream file = std::fstream(file_path, std::ios::in | std::ios::binary);
+    if(file.is_open()){
+        float score;
+        file.read(reinterpret_cast<char*>(&score), sizeof(float));
+        game_.setHighScore(score);
+        file.close();
+    }else{
+        std::cerr << "Error: Unable to open file " << file_path << std::endl;
+    }
 }
 
 void SceneTitle::renderBackground() {

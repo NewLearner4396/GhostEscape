@@ -22,6 +22,8 @@ class SceneMain : public Scene {
     void update(float dT) override;
     void render() override;
 
+    void saveData(const std::string& file_path) override;
+
     Spawner* getSpawner() const { return spawner_; }
 
    private:
