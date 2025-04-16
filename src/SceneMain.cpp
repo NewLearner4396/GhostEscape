@@ -7,6 +7,7 @@
 #include "HUD_Button.h"
 #include "HUD_Status.h"
 #include "HUD_Text.h"
+#include "BGStar.h"
 #include "Player.h"
 #include "Spawner.h"
 #include "Spell.h"
@@ -31,6 +32,8 @@ void SceneMain::init() {
     spawner_->init();
     spawner_->setTarget(player_);
     addObject(spawner_);
+
+    BGStar::addBGStar(this, 1200, 0.2f, 0.5f, 0.7f);
 
     HUD_status_ = HUD_Status::addHUDStatus(this, player_, glm::vec2{30.0f});
     HUD_text_score_ =

@@ -174,6 +174,14 @@ void Game::drawBoundary(const glm::vec2& leftTop, const glm::vec2& rightBottom, 
     SDL_SetRenderDrawColorFloat(renderer_, 0, 0, 0, 1);
 }
 
+void Game::drawPoints(const std::vector<glm::vec2>& points, glm::vec2 render_pos, SDL_FColor color) {
+    SDL_SetRenderDrawColorFloat(renderer_, color.r, color.g, color.b, color.a);
+    for (const auto& point : points) {
+        SDL_RenderPoint(renderer_, point.x + render_pos.x, point.y + render_pos.y);
+    }
+    SDL_SetRenderDrawColorFloat(renderer_, 0, 0, 0, 1);
+}
+
 void Game::renderTexture(const Texture& texture, const glm::vec2& position, const glm::vec2& size,
                          const glm::vec2& mask) {
     SDL_FRect srcRect{texture.srcRect.x, texture.srcRect.y + texture.srcRect.h * (1 - mask.y),

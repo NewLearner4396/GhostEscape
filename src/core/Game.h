@@ -28,9 +28,12 @@ class Game {
     void update(float dT);                                       // update the game state
     void render();                                               // render the game
 
-    void safeChangeScene(Scene* scene) {nextScene_ = scene;}
-    void changeScene(); //* do not call this function directly, use safeChangeScene instead
-    void quit() {isRunning_ = false;exeRunning_ = false;}
+    void safeChangeScene(Scene* scene) { nextScene_ = scene; }
+    void changeScene();  //* do not call this function directly, use safeChangeScene instead
+    void quit() {
+        isRunning_ = false;
+        exeRunning_ = false;
+    }
 
     // getters and setters
     glm::vec2 getWindowSize() const { return window_size_; }
@@ -66,6 +69,7 @@ class Game {
                   SDL_FColor color);
     void drawBoundary(const glm::vec2& leftTop, const glm::vec2& rightBottom, float width, SDL_FColor color,
                       bool inner = true);
+    void drawPoints(const std::vector<glm::vec2>& points, glm::vec2 render_pos, SDL_FColor color);
     //* render functions
     void renderTexture(const Texture& texture, const glm::vec2& position, const glm::vec2& size,
                        const glm::vec2& mask = {1.0f, 1.0f});

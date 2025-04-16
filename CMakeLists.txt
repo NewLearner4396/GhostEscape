@@ -31,6 +31,7 @@ add_executable(${TARGET}
     "src/affiliate/TextLabel.cpp"
     "src/raw/Status.cpp"
     "src/raw/Weapon.cpp"
+    "src/raw/BGStar.cpp"
     "src/world/Effect.cpp"
     "src/world/Spell.cpp"
     "src/screen/UI_Mouse.cpp"
