@@ -42,6 +42,7 @@ class SceneMain : public Scene {
     void updateScore();
     void checkButtonState();
     void checkEndTimer();
+    void checkSlowDown(float& dT);
 };
 
 #endif

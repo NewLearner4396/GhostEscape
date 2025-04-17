@@ -12,6 +12,20 @@ Game::Game() {
     isRunning_ = false;
 }
 
+void Game::updateMouse() {
+    mouse_button_ = SDL_GetMouseState(&mouse_position_.x, &mouse_position_.y);
+    //* The approach of restricting the window aspect ratio
+    SDL_SetWindowAspectRatio(window_, window_size_.x / window_size_.y, window_size_.x / window_size_.y);
+    int w, h;
+    SDL_GetWindowSize(window_, &w, &h);
+    mouse_position_ *= window_size_ / glm::vec2(w, h);
+
+    //* The approach of not restricting the window aspect ratio
+    // SDL_FRect rect;
+    // SDL_GetRenderLogicalPresentationRect(renderer_, &rect);
+    // mouse_position_ = (mouse_position_ - glm::vec2(rect.x, rect.y) ) * window_size_ / glm::vec2(rect.w, rect.h);
+}
+
 Game::~Game() { clean(); }
 
 void Game::init(const std::string& title, int width, int height) {
@@ -91,6 +105,7 @@ void Game::run() {
                 changeScene();
                 nextScene_ = nullptr;
             }
+            SDL_HideCursor();
             handleEvents();
             update(frameCurrentInterval_);
             render();
@@ -117,7 +132,7 @@ void Game::handleEvents() {
 }
 
 void Game::update(float dT) {
-    mouse_button_ = SDL_GetMouseState(&mouse_position_.x, &mouse_position_.y);
+    updateMouse();
     if (currentScene_) {
         currentScene_->update(dT);
     }

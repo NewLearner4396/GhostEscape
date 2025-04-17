@@ -4,11 +4,12 @@
 #include <fstream>
 #include "HUD_Button.h"
 #include "HUD_Text.h"
+#include "UI_Mouse.h"
 #include "SceneMain.h"
 
 void SceneTitle::init() {
     Scene::init();
-    SDL_ShowCursor();
+    
     game_.playMusic("../assets/bgm/Spooky music.mp3");
     loadData("../assets/data/score.dat");
 
@@ -36,6 +37,10 @@ void SceneTitle::init() {
                                          "../assets/font/VonwaonBitmap-16px.ttf", 16);
     text_credits_->setBgSizeByText(50.0f);
     text_credits_->setActive(false);
+
+    UI_mouse_ = UI_Mouse::addMouse(this, "../assets/UI/pointer_c_shaded.png", "../assets/UI/pointer_c_shaded.png", 1.0f, Anchor::TOP_LEFT);
+    if(SDL_CursorVisible())
+        SDL_HideCursor();  
 }
 
 void SceneTitle::clean() { Scene::clean(); }

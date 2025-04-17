@@ -16,7 +16,8 @@
 #include "UI_Mouse.h"
 
 void SceneMain::init() {
-    SDL_HideCursor();  // Hide the system cursor for a better experience
+    Scene::init();
+    // SDL_HideCursor();  // Hide the system cursor for a better experience
 
     world_size_ = game_.getWindowSize() * 3.0f;
     camera_size_ = game_.getWindowSize();
@@ -66,6 +67,7 @@ bool SceneMain::handleEvents(SDL_Event& event) {
 }
 
 void SceneMain::update(float dT) {
+    checkSlowDown(dT);
     Scene::update(dT);
     updateScore();
     checkButtonState();
@@ -131,4 +133,11 @@ void SceneMain::checkEndTimer() {
     HUD_button_back_->setRenderPosition(game_.getWindowSize() / 2.0f + glm::vec2{200, 0});
     HUD_button_back_->setScale(4.0f);
     HUD_button_pause_->setActive(false);
+}
+
+//* slow down the game when right mouse button is pressed
+void SceneMain::checkSlowDown(float& dT) {
+    if (game_.getMouseButton() & SDL_BUTTON_RMASK){
+        dT *= 0.4f;
+    }
 }

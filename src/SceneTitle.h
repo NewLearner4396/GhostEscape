@@ -7,6 +7,7 @@
 
 class HUD_Button;
 class HUD_Text;
+class UI_Mouse;
 class SceneTitle : public Scene {
    public:
     SceneTitle() = default;
@@ -28,6 +29,8 @@ class SceneTitle : public Scene {
     HUD_Button* button_quit_ = nullptr;
 
     HUD_Text* text_credits_ = nullptr;
+
+    UI_Mouse* UI_mouse_ = nullptr;
 
    private:
     void renderBackground();

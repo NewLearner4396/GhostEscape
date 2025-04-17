@@ -100,6 +100,7 @@ class Game {
     Game();
     Game(const Game&) = delete;
     Game& operator=(const Game&) = delete;
+
     glm::vec2 window_size_ = {800, 600};
     SDL_Window* window_ = nullptr;
     SDL_Renderer* renderer_ = nullptr;
@@ -118,5 +119,7 @@ class Game {
 
     float score_ = 0.0f;       // score of the game
     float high_score_ = 0.0f;  // high score of the game
+
+    void updateMouse();
 };
 #endif  // GAME_H
