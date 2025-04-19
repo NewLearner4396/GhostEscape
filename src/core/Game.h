@@ -37,8 +37,8 @@ class Game {
 
     // getters and setters
     glm::vec2 getWindowSize() const { return window_size_; }
-    void getWindow(SDL_Window*& window) const { window = window_; }
-    void getRenderer(SDL_Renderer*& renderer) const { renderer = renderer_; }
+    SDL_Window* getWindow() const { return window_; }
+    SDL_Renderer* getRenderer() const { return renderer_; }
     Scene* getCurrentScene() const { return currentScene_; }
     void setCurrentScene(Scene* scene) { currentScene_ = scene; }
     AssetStore* getAssetStore() const { return assetStore_; }

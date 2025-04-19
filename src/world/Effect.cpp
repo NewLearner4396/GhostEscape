@@ -20,11 +20,21 @@ void Effect::update(float dT) {
     checkFinish();
 }
 
+void Effect::clean(){
+    if (next_object_){
+        next_object_->clean();
+        delete next_object_;
+        next_object_ = nullptr;
+    }
+    ObjectWorld::clean();
+}
+
 void Effect::checkFinish(void) {
     if (sprite_ && sprite_->getIsFinished()) {
         need_remove_ = true;
         if (next_object_) {
             game_.getCurrentScene()->safeAddObject(next_object_);
+            next_object_ = nullptr;
         }
     }
 }

@@ -39,8 +39,7 @@ void SceneTitle::init() {
     text_credits_->setActive(false);
 
     UI_mouse_ = UI_Mouse::addMouse(this, "../assets/UI/pointer_c_shaded.png", "../assets/UI/pointer_c_shaded.png", 1.0f, Anchor::TOP_LEFT);
-    if(SDL_CursorVisible())
-        SDL_HideCursor();  
+    SDL_HideCursor();
 }
 
 void SceneTitle::clean() { Scene::clean(); }

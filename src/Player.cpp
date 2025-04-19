@@ -19,7 +19,8 @@ void Player::init() {
 
     collider_ = Collider::addCollider(this, sprite_idle_->getSize() / 2.0f);
     status_ = Status::addStatus(this);
-    deadEffect_ = Effect::addEffect(nullptr, "../assets/effect/1764.png", getPosition(), 2.0f);
+    deadEffect_ = Effect::addEffect(game_.getCurrentScene(), "../assets/effect/1764.png", getPosition(), 2.0f);
+    deadEffect_->setActive(false);
     weapon_thunder_ = WeaponThunder::addWeaponThunder(this, 10.0f, 0.5f);
     name_label_ =
         TextLabel::addTextLabel(this, "Player", "../assets/font/VonwaonBitmap-16px.ttf", 16, Anchor::TOP_LEFT);
@@ -121,7 +122,7 @@ void Player::checkIsAlive() {
     if (!status_->getIsAlive()) {
         setActive(false);
         deadEffect_->setPosition(getPosition());
-        game_.getCurrentScene()->safeAddObject(deadEffect_);
+        deadEffect_->setActive(true);
         game_.playSound("../assets/sound/female-scream-02-89290.mp3");
     }
 }

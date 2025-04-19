@@ -17,7 +17,6 @@
 
 void SceneMain::init() {
     Scene::init();
-    // SDL_HideCursor();  // Hide the system cursor for a better experience
 
     world_size_ = game_.getWindowSize() * 3.0f;
     camera_size_ = game_.getWindowSize();
@@ -51,6 +50,7 @@ void SceneMain::init() {
                                  "../assets/UI/A_Back2.png", "../assets/UI/A_Back3.png", 1.0f);
 
     UI_mouse_ = UI_Mouse::addMouse(this, "../assets/UI/29.png", "../assets/UI/30.png", 1.0f, Anchor::CENTER);
+    SDL_HideCursor();  // Hide the system cursor for a better experience
 
     end_timer_ = Timer::addTimer(this, 4.0f);
 }
